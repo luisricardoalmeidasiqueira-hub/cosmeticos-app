@@ -1,0 +1,20 @@
+{
+  "magazines": [
+    {
+      "id": 15,
+      "month": "Novembro/2026",
+      "active": true,
+      "brands": ["Natura", "Avon", "Avon Casa", "Jequiti"],
+      "categories": ["Perfumes", "Géis e cuidados", "Maquiagem", "Kits", "Promoções"],
+      "launches": []
+    },
+    {
+      "id": 14,
+      "month": "Outubro/2026",
+      "active": false,
+      "brands": ["Natura", "Avon", "Avon Casa", "Jequiti"],
+      "categories": ["Perfumes", "Géis e cuidados", "Maquiagem", "Kits", "Promoções"],
+      "launches": []
+    }
+  ]
+}
