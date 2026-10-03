@@ -1,12 +1,14 @@
 {
-  "name": "Giovânia",
-  "short_name": "Giovânia",
-  "start_url": "./index.html",
+  "name": "Jeovania",
+  "short_name": "Jeovania",
+  "description": "Catálogo, clientes, vendas e pedidos",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#0b0b0d",
+  "background_color": "#ffffff",
   "theme_color": "#8b2f5e",
   "icons": [
-    {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
-    {"src":"icon-512.png","sizes":"512x512","type":"image/png"}
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
