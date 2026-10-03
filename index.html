@@ -42,6 +42,7 @@ header{background:linear-gradient(135deg,#7b2452,#b54d7b);color:white;padding:14
 
 .legalbox{margin:18px 0 90px;padding:16px;border:1px solid #333;border-radius:16px;background:#151515;color:#ddd;font-size:12px;line-height:1.55}.legalbox h3{margin:0 0 8px;color:#fff;font-size:15px}.legalbox p{margin:7px 0}.legalbtn{background:#252525!important;color:#fff!important;border:1px solid #555!important;font-size:12px!important;padding:10px 12px!important;border-radius:10px!important}.legalpanel{padding-bottom:110px}.legalpanel .legalcard{background:#181818;border:1px solid #333;border-radius:16px;padding:16px;margin-bottom:12px}.legalpanel h3{margin:0 0 8px;color:#fff}.legalpanel p,.legalpanel li{font-size:13px;line-height:1.6;color:#ddd}.legalpanel ul{padding-left:20px}.copyright{margin-top:14px;text-align:center;color:#999;font-size:11px}.disclaimer{background:#21151b;border-color:#5a3044}.appfooter{margin:18px 18px 95px;padding:14px 12px;text-align:center;border-top:1px solid #eee;color:#777;font-size:10.5px;line-height:1.55}.appfooter strong{color:#555}.supplierbox{background:#f8f1f5;border-radius:18px;padding:15px}.supplierlist{margin-top:10px}.suppliercard{background:#fff;border:1px solid #eadde4;border-radius:13px;padding:11px;margin-top:8px}.suppliercard strong{display:block}.suppliercard small{display:block;color:#777;margin-top:3px}.supplieractions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.whatsappbtn{background:#2e9b57!important;color:#fff!important}.supplierempty{font-size:12px;color:#777;margin-top:9px}.reorderbox{background:#fff7e8;border:1px solid #ead7ad;border-radius:18px;padding:15px;margin-bottom:14px}.reorderbox h3{margin:0 0 8px;color:#7a5611}.reordercard{background:#fff;border:1px solid #eadde4;border-radius:13px;padding:11px;margin-top:8px}.reordercard strong{display:block}.reorderitems{font-size:13px;color:#555;line-height:1.55;margin-top:6px}.reorderactions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.orderwa{background:#2e9b57!important;color:#fff!important}.stock-alert-box .reorder-alert-btn{margin-top:7px;background:#8b2f5e!important;color:#fff!important;padding:8px 10px!important;font-size:12px!important}
 .twocol input,.twocol select{min-width:0;width:100%}
+.top{align-items:flex-start;gap:10px}.top>div:first-child{min-width:0;flex:1}.top .iconbtn{flex:none}.brand-nav{scrollbar-width:none}.brand-nav::-webkit-scrollbar{display:none}
 .admin .addr-toggle{width:100%;margin:0;display:flex;justify-content:space-between;align-items:center;border:1px solid #eadde4;background:#fff;color:#6f294d;border-radius:11px;padding:12px;font-size:14px;font-weight:800;text-align:left}
 .magbrand{border:1px solid #eadde4;border-radius:13px;padding:11px;margin-top:9px;background:#fff}.magbrand-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.magbrand-head strong{font-size:15px;color:#29252a}.admin .maglinkbtn{margin:0;border:1px solid #dbc9d3;background:#fff;color:#6f294d;border-radius:9px;padding:6px 9px;font-size:11px;font-weight:800}a.magazine-open{display:block;text-align:center;text-decoration:none}.magnolink{font-size:12px;color:#999;margin-top:8px}
 .licensecard{background:#fff;border:1px solid #eadde4;border-radius:13px;padding:11px;margin-top:9px;font-size:13px}.licensecard .lnk{font-size:11px;color:#777;word-break:break-all;margin-top:4px}.accessjson{width:100%;min-height:120px;margin-top:8px;padding:10px;border:1px solid #ddd;border-radius:10px;font-family:monospace;font-size:11px;background:#fff;color:#333}
@@ -221,7 +222,7 @@ header{background:linear-gradient(135deg,#7b2452,#b54d7b);color:white;padding:14
   <div class="section-title"><h2>🔄 Atualizar aplicativo</h2></div>
   <div class="admin">
     <strong class="appNameText">Cosméticos App</strong>
-    <p style="font-size:13px;color:#666">Versão instalada: <strong id="appVersionLabel">2.9.3</strong></p>
+    <p style="font-size:13px;color:#666">Versão instalada: <strong id="appVersionLabel">2.9.4</strong></p>
     <div id="updateStatus" style="padding:12px;border-radius:12px;background:#f5f5f5;font-size:13px">Pronto para verificar.</div>
     <button style="margin-top:10px" onclick="checkForUpdate()">🔎 Verificar atualização</button>
     <button style="margin-top:8px" onclick="location.reload()">↻ Recarregar aplicativo</button>
@@ -349,7 +350,7 @@ header{background:linear-gradient(135deg,#7b2452,#b54d7b);color:white;padding:14
 
 <div class="appfooter">
   <strong>© 2026 Luís Ricardo de Almeida Siqueira — Todos os direitos reservados.</strong><br>
-  Versão 2.9.3<br>
+  Versão 2.9.4<br>
   Aplicativo independente para controle de estoque, produtos, clientes, vendas e pedidos de vendedores.<br>
   <strong>Não é um aplicativo oficial da Natura, Avon ou Jequiti.</strong> Não possui vínculo, patrocínio, autorização, representação ou afiliação com essas empresas.
 </div>
@@ -789,7 +790,7 @@ function deleteClient(i){const c=JSON.parse(localStorage.getItem('clientes_natur
    Observação: navegadores não permitem registrar um Service Worker diretamente
    a partir de código inline/Blob; por isso o app não depende mais de sw.js para abrir.
    O conteúdo original fica preservado abaixo para referência. */
-const EMBEDDED_SW_SOURCE = `const CACHE='jeovania-v2.9.3';
+const EMBEDDED_SW_SOURCE = `const CACHE='jeovania-v2.9.4';
 const CORE=['./','./index.html','./manifest.json','./version.json','./revistas.json','./icon-192.png','./icon-512.png','./capa-vita-home.jpg','./wallpaper-jeovania.jpg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
@@ -799,7 +800,7 @@ window.addEventListener('load',()=>{
   // O aplicativo funciona normalmente sem o arquivo sw.js.
   // Isso evita erro quando o index.html é aberto sozinho ou sem o SW no servidor.
 });
-const APP_VERSION='2.9.3';
+const APP_VERSION='2.9.4';
 function monthKeyFromOrder(o){if(!o)return ''; if(o.isoDate)return o.isoDate.slice(0,7); const parts=(o.date||'').split('/'); if(parts.length===3)return parts[2]+'-'+String(parts[1]).padStart(2,'0'); return '';}
 function currentMonth(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');}
 function monthLabelBR(key){const [y,m]=String(key||'').split('-');if(!y||!m)return key||'';return new Date(Number(y),Number(m)-1,1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'});}
