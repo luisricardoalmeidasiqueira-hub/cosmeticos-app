@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#8b2f5e">
-<title>Jeovania</title>
+<title>Cosméticos App</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f7f4f5;color:#29252a}
 .app{max-width:520px;margin:auto;min-height:100vh;background:rgba(255,255,255,.965);box-shadow:0 0 30px #0001}
@@ -47,20 +47,20 @@ header{background:linear-gradient(135deg,#7b2452,#b54d7b);color:white;padding:14
 .licensecard{background:#fff;border:1px solid #eadde4;border-radius:13px;padding:11px;margin-top:9px;font-size:13px}.licensecard .lnk{font-size:11px;color:#777;word-break:break-all;margin-top:4px}.accessjson{width:100%;min-height:120px;margin-top:8px;padding:10px;border:1px solid #ddd;border-radius:10px;font-family:monospace;font-size:11px;background:#fff;color:#333}
 .blockscreen{position:fixed;inset:0;z-index:999;background:rgba(42,16,32,.96);display:flex;align-items:center;justify-content:center;padding:24px}.blockcard{background:#fff;border-radius:20px;padding:24px;text-align:center;max-width:360px;color:#29252a}.blockcard h2{margin:8px 0;color:#8b2f5e}.blockcard button{border:0;background:#8b2f5e;color:#fff;padding:11px 16px;border-radius:11px;font-weight:800;margin-top:8px}
 </style>
-<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png"><meta name="theme-color" content="#8b2f5e"><meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png"><meta name="theme-color" content="#8b2f5e"><meta name="apple-mobile-web-app-capable" content="yes"><meta id="metaAppTitle" name="apple-mobile-web-app-title" content="Cosméticos App"><meta id="metaAppName" name="application-name" content="Cosméticos App">
 </head>
 <body>
 <div class="app">
 <header>
   <img class="app-cover" src="capa-vita-home.jpg" alt="Linha VITA HOME Avon Casa">
   <div class="cover-caption">Avon Casa • VITA HOME</div>
-  <div class="top"><div><div class="brand">Jeovania 🌸</div><div class="sub">Catálogo e pedidos</div><div class="brand-nav"><button onclick="homeShortcut('Natura')">🌿 Natura</button><button onclick="homeShortcut('Avon')">💄 Avon</button><button onclick="homeShortcut('Avon Casa')">🏠 Avon Casa</button><button onclick="homeShortcut('Jequiti')">🌸 Jequiti</button></div></div><button class="iconbtn" onclick="show('cart')">🛒</button></div>
+  <div class="top"><div><div class="brand"><span class="appNameText">Cosméticos App</span> 🌸</div><div class="sub">Catálogo e pedidos</div><div class="brand-nav"><button onclick="homeShortcut('Natura')">🌿 Natura</button><button onclick="homeShortcut('Avon')">💄 Avon</button><button onclick="homeShortcut('Avon Casa')">🏠 Avon Casa</button><button onclick="homeShortcut('Jequiti')">🌸 Jequiti</button></div></div><button class="iconbtn" onclick="show('cart')">🛒</button></div>
   <label class="search">🔎 <input id="globalProductSearch" type="search" placeholder="Buscar produto..." oninput="searchProducts(this.value)"></label>
 </header>
 
 <main class="content">
 <section id="home" class="panel show">
-  <div class="section-title"><h2>Jeovania</h2></div>
+  <div class="section-title"><h2 class="appNameText">Cosméticos App</h2></div>
   <div class="home-shortcuts">
     <button class="home-shortcut" onclick="homeShortcut('Natura')"><span>🌿</span>Natura</button>
     <button class="home-shortcut" onclick="homeShortcut('Avon')"><span>💄</span>Avon</button>
@@ -91,7 +91,7 @@ header{background:linear-gradient(135deg,#7b2452,#b54d7b);color:white;padding:14
 <section id="help" class="panel">
   <div class="screen-toolbar"><button onclick="goBack()">← Voltar</button><button class="primary" onclick="show('help')">❓ Como usar</button></div>
   <div class="section-title"><h2>❓ Como usar</h2></div>
-  <div class="admin"><p style="margin-top:0;font-size:13px;color:#666">Um guia rápido para encontrar e usar as principais funções do Jeovania.</p><div class="help-list">
+  <div class="admin"><p style="margin-top:0;font-size:13px;color:#666">Um guia rápido para encontrar e usar as principais funções do app <span class="appNameText">Cosméticos App</span>.</p><div class="help-list">
     <div class="help-item"><strong>🛍️ Produtos e catálogo</strong>Toque em “Ver meu catálogo” para consultar os produtos. Para cadastrar, editar ou excluir um produto, entre em Consultora.</div>
     <div class="help-item"><strong>👤 Clientes</strong>Na venda à vista, nome e telefone são opcionais. Na venda a prazo, informe nome e telefone; endereço é opcional. A primeira compra pode ser lançada na mesma ficha.</div>
     <div class="help-item"><strong>📦 Pedidos</strong>Use Pedidos para consultar as vendas registradas e acompanhar os pedidos.</div>
@@ -129,7 +129,7 @@ header{background:linear-gradient(135deg,#7b2452,#b54d7b);color:white;padding:14
   <div class="admin">
     <div id="magazineCurrent"></div>
     <button onclick="loadOnlineMagazines()" style="margin-top:10px">🔄 Atualizar revistas</button>
-    <p style="font-size:11px;color:#777;margin-bottom:0">As edições são carregadas de uma fonte online própria do Jeovania. Você poderá atualizar o arquivo de revistas sem precisar trocar o index.html.</p>
+    <p style="font-size:11px;color:#777;margin-bottom:0">As edições são carregadas de uma fonte online própria do app <span class="appNameText">Cosméticos App</span>. Você poderá atualizar o arquivo de revistas sem precisar trocar o index.html.</p>
   </div>
   <div id="magazineList" style="margin-top:12px"></div>
 </section>
@@ -220,8 +220,8 @@ header{background:linear-gradient(135deg,#7b2452,#b54d7b);color:white;padding:14
   <div class="screen-toolbar"><button onclick="goBack()">← Voltar</button><button onclick="screenSaveAction('update')">💾 Salvar</button><button onclick="screenEditAction('update')">✏️ Editar</button><button class="danger" onclick="screenDeleteAction('update')">🗑️ Excluir</button></div>
   <div class="section-title"><h2>🔄 Atualizar aplicativo</h2></div>
   <div class="admin">
-    <strong>Jeovania</strong>
-    <p style="font-size:13px;color:#666">Versão instalada: <strong id="appVersionLabel">2.9</strong></p>
+    <strong class="appNameText">Cosméticos App</strong>
+    <p style="font-size:13px;color:#666">Versão instalada: <strong id="appVersionLabel">2.9.3</strong></p>
     <div id="updateStatus" style="padding:12px;border-radius:12px;background:#f5f5f5;font-size:13px">Pronto para verificar.</div>
     <button style="margin-top:10px" onclick="checkForUpdate()">🔎 Verificar atualização</button>
     <button style="margin-top:8px" onclick="location.reload()">↻ Recarregar aplicativo</button>
@@ -312,7 +312,12 @@ header{background:linear-gradient(135deg,#7b2452,#b54d7b);color:white;padding:14
       <button onclick="copyAccessJson()">📋 Copiar texto do arquivo</button>
     </div>
   </div>
-  <div class="admin"><strong>🛠️ Configurações do desenvolvedor</strong><p style="font-size:13px;color:#666">Esta área é exclusiva para configurações do aplicativo e controle de acesso da consultora.</p></div>
+  <div class="admin"><strong>🛠️ Configurações do desenvolvedor</strong><p style="font-size:13px;color:#666">Esta área é exclusiva para configurações do aplicativo e controle de acesso da consultora.</p>
+    <strong>✏️ Nome do app neste aparelho</strong>
+    <p style="font-size:12px;color:#666;margin:5px 0 0">É o nome que aparece no topo do app e embaixo do ícone. No link de cada consultora, o app usa automaticamente o nome dela.</p>
+    <input id="appNameInput" maxlength="30" placeholder="Ex.: Maria Cosméticos" style="width:100%;margin-top:8px;padding:10px;border:1px solid #ddd;border-radius:10px">
+    <button onclick="saveAppNameFromInput()">💾 Salvar nome</button>
+  </div>
 </section>
 
 <section id="legal" class="panel legalpanel">
@@ -344,7 +349,7 @@ header{background:linear-gradient(135deg,#7b2452,#b54d7b);color:white;padding:14
 
 <div class="appfooter">
   <strong>© 2026 Luís Ricardo de Almeida Siqueira — Todos os direitos reservados.</strong><br>
-  Versão 2.9<br>
+  Versão 2.9.3<br>
   Aplicativo independente para controle de estoque, produtos, clientes, vendas e pedidos de vendedores.<br>
   <strong>Não é um aplicativo oficial da Natura, Avon ou Jequiti.</strong> Não possui vínculo, patrocínio, autorização, representação ou afiliação com essas empresas.
 </div>
@@ -468,7 +473,7 @@ function sendOrder(){
  const order=applyPaymentState({id:Date.now(),date:new Date().toLocaleDateString('pt-BR'),isoDate:new Date().toISOString(),client:client.name,phone:client.phone,products:cartItems,total,paid});
  orders.push(order);localStorage.setItem('pedidos_natura_avon',JSON.stringify(orders));decrementStock(cartItems);renderProducts();renderManageProducts();
  client.orders=client.orders||[];client.orders.push(order);clients[Number(ci)]=client;localStorage.setItem('clientes_natura_avon',JSON.stringify(clients));renderClients();
- let msg='Pedido da Jeovania\nCliente: '+client.name+'\nTelefone: '+(client.phone||'')+'\nTotal: '+money(order.total)+'\nPagamento: '+order.payment+'\nPago: '+money(order.paid)+'\nFalta: '+money(order.balance)+'\nStatus: '+order.status+'\n\nProdutos:\n';
+ let msg='Pedido — '+appName()+'\nCliente: '+client.name+'\nTelefone: '+(client.phone||'')+'\nTotal: '+money(order.total)+'\nPagamento: '+order.payment+'\nPago: '+money(order.paid)+'\nFalta: '+money(order.balance)+'\nStatus: '+order.status+'\n\nProdutos:\n';
  cart.forEach(x=>msg+='- '+x.n+': '+money(x.p)+'\n');
  pendingClientIndex=null;cart=[];updateCart();alert('Pedido salvo na ficha do cliente e preparado para o WhatsApp.');
  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
@@ -510,13 +515,21 @@ function editClient(i){
  c[i].name=name.trim();c[i].phone=phone.trim();(c[i].orders||[]).forEach(o=>{o.client=c[i].name;o.phone=c[i].phone});localStorage.setItem('clientes_natura_avon',JSON.stringify(c));
  const orders=JSON.parse(localStorage.getItem('pedidos_natura_avon')||'[]');orders.forEach(o=>{if(oldIds.has(o.id)){o.client=c[i].name;o.phone=c[i].phone}});localStorage.setItem('pedidos_natura_avon',JSON.stringify(orders));renderClients();alert('Cliente atualizado.');
 }
+/* ===== Nome do app (editável pelo desenvolvedor / vem no link da consultora) ===== */
+const DEFAULT_APP_NAME='Cosméticos App';
+function appName(){try{return localStorage.getItem('app_nome_exibicao')||DEFAULT_APP_NAME}catch(e){return DEFAULT_APP_NAME}}
+function setAppName(n){n=String(n||'').replace(/\s+/g,' ').trim().slice(0,30);if(!n)return;try{localStorage.setItem('app_nome_exibicao',n)}catch(e){}applyAppName()}
+function applyAppName(){const n=appName();document.querySelectorAll('.appNameText').forEach(e=>e.textContent=n);document.title=n;const t=document.getElementById('metaAppTitle');if(t)t.setAttribute('content',n);const a=document.getElementById('metaAppName');if(a)a.setAttribute('content',n);const inp=document.getElementById('appNameInput');if(inp&&document.activeElement!==inp)inp.value=n;updateDynamicManifest(n)}
+function updateDynamicManifest(n){try{let code='';try{code=localStorage.getItem('jeovania_code')||''}catch(e){}const base=location.origin+location.pathname;const start=base+(code?'?c='+encodeURIComponent(code)+'&n='+encodeURIComponent(n):'');const m={name:n,short_name:n,start_url:start,scope:new URL('./',location.href).href,display:'standalone',background_color:'#ffffff',theme_color:'#8b2f5e',icons:[{src:new URL('icon-192.png',location.href).href,sizes:'192x192',type:'image/png'},{src:new URL('icon-512.png',location.href).href,sizes:'512x512',type:'image/png'}]};const link=document.querySelector('link[rel="manifest"]');if(link&&location.protocol.startsWith('http'))link.href='data:application/manifest+json,'+encodeURIComponent(JSON.stringify(m))}catch(e){}}
+function saveAppNameFromInput(){const v=(document.getElementById('appNameInput')?.value||'').trim();if(!v){alert('Digite o nome do app.');return}setAppName(v);alert('✅ Nome salvo: '+appName()+'\n\nPara mudar o nome embaixo do ícone, apague o ícone e adicione à tela de início de novo.')}
+function readNameFromLink(){try{const n=new URLSearchParams(location.search).get('n');if(n)setAppName(n)}catch(e){}}
 function slugCode(name){return String(name||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,20)}
 function newCode(name){return (slugCode(name)||'consultora')+'-'+Math.floor(1000+Math.random()*9000)}
 function licenseList(){let l=null;try{l=JSON.parse(localStorage.getItem('jeovania_licenses')||'null')}catch(e){}if(!Array.isArray(l)){l=[];try{const old=JSON.parse(localStorage.getItem('jeovania_license')||'null');if(old&&old.name){old.code=newCode(old.name);l.push(old);}}catch(e){}localStorage.setItem('jeovania_licenses',JSON.stringify(l));}return l}
 function saveLicenseList(l){localStorage.setItem('jeovania_licenses',JSON.stringify(l))}
 function licenseData(){const code=(document.getElementById('licenseCode')?.value||'').trim();return licenseList().find(x=>x.code===code)||null}
 function appBaseUrl(){return location.origin+location.pathname}
-function consultantLink(code){return appBaseUrl()+'?c='+encodeURIComponent(code)}
+function consultantLink(code){const x=licenseList().find(y=>y.code===code);return appBaseUrl()+'?c='+encodeURIComponent(code)+(x&&x.name?'&n='+encodeURIComponent(x.name):'')}
 function licenseExpired(x){return !!(x&&x.expiry&&Date.now()>new Date(x.expiry+'T23:59:59').getTime())}
 function accessJsonText(){const o={consultoras:{}};licenseList().forEach(x=>{o.consultoras[x.code]={nome:x.name,status:x.status,vence:x.expiry||''}});return JSON.stringify(o,null,2)}
 function fillLicenseForm(code){const x=licenseList().find(y=>y.code===code);if(!x)return;document.getElementById('licenseName').value=x.name||'';document.getElementById('licenseStatus').value=x.status||'trial';document.getElementById('licenseExpiry').value=x.expiry||'';document.getElementById('licenseDays').value='';document.getElementById('licenseCode').value=x.code;document.getElementById('licenseName').scrollIntoView({behavior:'smooth',block:'center'})}
@@ -539,7 +552,7 @@ function setLicenseStatus(code,status){const l=licenseList();const x=l.find(y=>y
 function deleteLicense(code){const l=licenseList();const x=l.find(y=>y.code===code);if(!x)return;if(!confirm('Excluir o acesso de '+x.name+'? O link dela deixa de funcionar depois que você atualizar o acessos.json.'))return;saveLicenseList(l.filter(y=>y.code!==code));if(document.getElementById('licenseCode').value===code)document.getElementById('licenseCode').value='';renderLicense()}
 function copyText(t,msg){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>alert(msg)).catch(()=>prompt('Copie o texto abaixo:',t))}else prompt('Copie o texto abaixo:',t)}
 function copyLicenseLink(code){copyText(consultantLink(code),'🔗 Link copiado!')}
-function sendLicenseWhatsApp(code){const x=licenseList().find(y=>y.code===code);if(!x)return;const msg='Olá, '+x.name+'! 🌸 Este é o seu link do aplicativo Jeovania:\n'+consultantLink(code)+'\n\nAbra sempre por este link. Se quiser, adicione à tela inicial a partir dele.';window.location.href='https://wa.me/?text='+encodeURIComponent(msg)}
+function sendLicenseWhatsApp(code){const x=licenseList().find(y=>y.code===code);if(!x)return;const msg='Olá, '+x.name+'! 🌸 Este é o seu link do aplicativo '+(x.name||'')+':\n'+consultantLink(code)+'\n\nAbra sempre por este link. Se quiser, adicione à tela inicial a partir dele.';window.location.href='https://wa.me/?text='+encodeURIComponent(msg)}
 function copyAccessJson(){copyText(accessJsonText(),'📄 Texto copiado! Cole no arquivo acessos.json do GitHub.')}
 
 /* ===== Verificação do link da consultora (acessos.json no GitHub) ===== */
@@ -555,6 +568,7 @@ async function checkAccess(){
  try{const r=await fetch(ACCESS_SOURCE+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('sem arquivo');const d=await r.json();entry=(d.consultoras||{})[code]||null;known=true;localStorage.setItem('jeovania_access_cache',JSON.stringify({entry}))}
  catch(e){try{const c=JSON.parse(localStorage.getItem('jeovania_access_cache')||'null');if(c){entry=c.entry;known=true}}catch(_){}}
  if(!known)return;
+ if(entry&&entry.nome)setAppName(entry.nome);
  const msg=accessProblem(entry);if(msg)showBlockScreen(msg);else hideBlockScreen();
 }
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')checkAccess()});
@@ -775,7 +789,7 @@ function deleteClient(i){const c=JSON.parse(localStorage.getItem('clientes_natur
    Observação: navegadores não permitem registrar um Service Worker diretamente
    a partir de código inline/Blob; por isso o app não depende mais de sw.js para abrir.
    O conteúdo original fica preservado abaixo para referência. */
-const EMBEDDED_SW_SOURCE = `const CACHE='jeovania-v2.9';
+const EMBEDDED_SW_SOURCE = `const CACHE='jeovania-v2.9.3';
 const CORE=['./','./index.html','./manifest.json','./version.json','./revistas.json','./icon-192.png','./icon-512.png','./capa-vita-home.jpg','./wallpaper-jeovania.jpg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
@@ -785,7 +799,7 @@ window.addEventListener('load',()=>{
   // O aplicativo funciona normalmente sem o arquivo sw.js.
   // Isso evita erro quando o index.html é aberto sozinho ou sem o SW no servidor.
 });
-const APP_VERSION='2.9';
+const APP_VERSION='2.9.3';
 function monthKeyFromOrder(o){if(!o)return ''; if(o.isoDate)return o.isoDate.slice(0,7); const parts=(o.date||'').split('/'); if(parts.length===3)return parts[2]+'-'+String(parts[1]).padStart(2,'0'); return '';}
 function currentMonth(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');}
 function monthLabelBR(key){const [y,m]=String(key||'').split('-');if(!y||!m)return key||'';return new Date(Number(y),Number(m)-1,1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'});}
@@ -799,11 +813,13 @@ function renderRatings(){const e=document.getElementById('ratingRanking');if(!e)
 function requestRatingWhatsApp(){const phone=normalizePhone(document.getElementById('ratingPhone')?.value||'');if(phone.length<10){alert('Informe um WhatsApp válido.');return}const p=products.find(x=>String(x.id)===String(document.getElementById('ratingProduct')?.value));const msg=encodeURIComponent('Olá! 😊 Gostaria de saber o que você achou do '+(p?.n||'produto')+'. Pode me dar uma nota de 1 a 5 estrelas e, se quiser, contar o que mais gostou?');window.location.href='https://wa.me/55'+phone+'?text='+msg;}
 function saveRating(){const pid=document.getElementById('ratingProduct')?.value;if(!pid){alert('Selecione um produto.');return}const r={id:Date.now(),productId:Number(pid),stars:Number(document.getElementById('ratingStars').value),client:(document.getElementById('ratingClient').value||'').trim(),comment:(document.getElementById('ratingComment').value||'').trim(),date:new Date().toISOString().slice(0,10)};const rs=allRatings();rs.push(r);localStorage.setItem('avaliacoes_jeovania',JSON.stringify(rs));document.getElementById('ratingClient').value='';document.getElementById('ratingPhone').value='';document.getElementById('ratingComment').value='';renderRatings();alert('⭐ Avaliação salva.');}
 function showRatingFor(id){show('ratings');setTimeout(()=>{const e=document.getElementById('ratingProduct');if(e)e.value=String(id);},50);}
-function shareApp(){const data={title:'Jeovania',text:'Conheça o aplicativo Jeovania para controle de produtos, estoque, clientes, vendas e pedidos.',url:location.href};if(navigator.share)navigator.share(data).catch(()=>{});else{navigator.clipboard?.writeText(location.href).then(()=>alert('🔗 Link do aplicativo copiado para compartilhar.')).catch(()=>alert('🔗 Copie o endereço desta página para compartilhar.'));}}
+function shareApp(){const data={title:appName(),text:'Conheça o aplicativo '+appName()+' para controle de produtos, estoque, clientes, vendas e pedidos.',url:location.href};if(navigator.share)navigator.share(data).catch(()=>{});else{navigator.clipboard?.writeText(location.href).then(()=>alert('🔗 Link do aplicativo copiado para compartilhar.')).catch(()=>alert('🔗 Copie o endereço desta página para compartilhar.'));}}
 async function checkForUpdate(){const e=document.getElementById('updateStatus');if(!e)return;e.textContent='🔎 Verificando...';try{const r=await fetch('version.json?'+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('sem arquivo');const v=await r.json();if(String(v.version)!==APP_VERSION)e.innerHTML=`🆕 Nova versão disponível: <strong>${v.version}</strong>. Recarregue ou abra o link publicado.`;else e.textContent='✅ Você já está usando a versão mais recente.';}catch(err){e.textContent='ℹ️ A verificação online estará disponível quando o aplicativo estiver publicado com o arquivo de versão.';}}
 function renderAllNew(){setDefaultMonths();renderOrders();renderFinance();renderRatingProducts();renderRatings();const v=document.getElementById('appVersionLabel');if(v)v.textContent=APP_VERSION;}
 
 try{history.replaceState({p:'home'},'')}catch(e){}
+readNameFromLink();
+applyAppName();
 checkAccess();
 fixSavedPayments();
 renderManageProducts();

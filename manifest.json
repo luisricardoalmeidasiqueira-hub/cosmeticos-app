@@ -1,6 +1,6 @@
 {
-  "name": "Jeovania",
-  "short_name": "Jeovania",
+  "name": "Cosméticos App",
+  "short_name": "Cosméticos App",
   "description": "Catálogo, clientes, vendas e pedidos",
   "start_url": "./",
   "scope": "./",
