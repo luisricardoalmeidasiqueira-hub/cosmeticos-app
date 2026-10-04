@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#8b2f5e">
+<title>Cosméticos App</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f7f4f5;color:#29252a}
+.app{max-width:520px;margin:auto;min-height:100vh;background:rgba(255,255,255,.965);box-shadow:0 0 30px #0001}
+header{background:linear-gradient(135deg,#7b2452,#b54d7b);color:white;padding:14px 14px 18px;border-radius:0 0 24px 24px}.app-cover{width:100%;height:132px;object-fit:contain;background:#fff;border-radius:18px;margin-bottom:13px;display:block}.cover-caption{font-size:10px;text-align:center;opacity:.86;margin-top:-7px;margin-bottom:8px}
+.top{display:flex;justify-content:space-between;align-items:center}.brand{font-size:22px;font-weight:800}.sub{opacity:.9;font-size:13px;margin-top:3px}
+.iconbtn{border:0;background:#ffffff22;color:#fff;width:42px;height:42px;border-radius:14px;font-size:20px}
+.search{margin-top:17px;background:white;border-radius:14px;padding:10px 14px;color:#777;display:flex;gap:9px;align-items:center}.search input{border:0;outline:0;width:100%;font-size:14px;background:transparent;color:#333}.search input::placeholder{color:#777}
+.content{padding:18px}.section-title{display:flex;justify-content:space-between;align-items:center;margin:3px 0 12px}.section-title h2{font-size:19px;margin:0}.see{color:#8b2f5e;font-size:13px;font-weight:700}.home-shortcuts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 14px}.home-shortcut{border:1px solid #eadde4;background:#fff;border-radius:13px;padding:10px 6px;text-align:center;color:#6f294d;font-weight:800;font-size:12px;box-shadow:0 2px 7px #0000000b}.home-shortcut span{display:block;font-size:22px;margin-bottom:3px}.home-shortcut:active{transform:scale(.98);background:#fff5fa}
+.brands{display:grid;grid-template-columns:1fr 1fr;gap:12px}.brandcard{border:0;border-radius:18px;padding:18px;text-align:left;min-height:105px;color:white;box-shadow:0 5px 14px #0001}.brandcard strong{font-size:22px}.brandcard small{display:block;margin-top:8px;opacity:.9}.natura{background:linear-gradient(135deg,#5d7442,#94a95c)}.avon{background:linear-gradient(135deg,#8b2455,#c75d89)}
+.cats{display:flex;gap:9px;overflow:auto;padding-bottom:5px}.cat{white-space:nowrap;border:1px solid #e5dce1;background:#fff;border-radius:20px;padding:9px 14px;font-size:13px}.cat.active{background:#8b2f5e;color:#fff;border-color:#8b2f5e}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:13px}.product{border:1px solid #eee;border-radius:18px;overflow:hidden;background:#fff;position:relative}.pic{height:145px;background:linear-gradient(145deg,#f2e9ed,#fff);display:flex;align-items:center;justify-content:center;font-size:48px}.pbody{padding:12px}.tag{font-size:10px;color:#8b2f5e;font-weight:800;text-transform:uppercase}.product h3{font-size:14px;margin:5px 0;line-height:1.2}.price{font-size:17px;font-weight:800}.old{font-size:11px;color:#999;text-decoration:line-through;margin-left:5px}.add{width:100%;margin-top:9px;border:0;background:#8b2f5e;color:white;border-radius:11px;padding:10px;font-weight:700}
+.bottom{position:sticky;bottom:0;background:#fff;border-top:1px solid #eee;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:5}.nav{border:0;background:none;color:#777;font-size:11px}.nav span{display:block;font-size:20px;margin-bottom:2px}.nav.active{color:#8b2f5e;font-weight:800}
+.badge{position:absolute;top:8px;right:8px;background:#8b2f5e;color:#fff;border-radius:20px;font-size:11px;padding:5px 8px}
+.panel{display:none}.panel.show{display:block}.empty{text-align:center;padding:45px 15px;color:#777}
+.screen-toolbar{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin:0 0 12px;padding:8px;background:#fff;border:1px solid #eadde4;border-radius:13px;box-shadow:0 2px 7px #0000000a}
+.screen-toolbar button{border:1px solid #dbc9d3;background:#fff;color:#6f294d;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:800}
+.screen-toolbar button.primary{background:#8b2f5e;color:#fff;border-color:#8b2f5e}.screen-toolbar button.danger{color:#9b3c55}.screen-toolbar button:active{transform:scale(.98)}
+.brand-nav{display:flex;gap:7px;overflow:auto;margin:10px 0 0}.brand-nav button{white-space:nowrap;border:1px solid #ffffff55;background:#ffffff18;color:#fff;border-radius:999px;padding:7px 10px;font-weight:800;font-size:12px}.brand-nav button:active{background:#ffffff35}
+.help-list{display:grid;gap:9px}.help-item{background:#fff;border:1px solid #eadde4;border-radius:13px;padding:11px}.help-item strong{display:block;color:#6f294d;margin-bottom:3px}
+
+.order{border:1px solid #eee;border-radius:15px;padding:13px;margin-bottom:10px}.order strong{display:block}.status{display:inline-block;margin-top:8px;background:#fff1d9;color:#9a6500;border-radius:12px;padding:5px 9px;font-size:11px;font-weight:700}
+.admin{background:#f8f1f5;border-radius:18px;padding:15px}.admin button{border:0;background:#8b2f5e;color:#fff;padding:10px 12px;border-radius:10px;margin:4px;font-weight:700}
+
+.magazinecard{border:1px solid #eadde4;border-radius:16px;padding:14px;margin-bottom:10px;background:#fff}.magazinecard h3{margin:0 0 5px}.launchbox{background:#fff4d8;border:1px solid #e8c96d;border-radius:13px;padding:11px;margin-top:9px}.launchitem{padding:9px 0;border-bottom:1px solid #eee}.launchitem:last-child{border-bottom:0}.newtag{display:inline-block;background:#8b2f5e;color:#fff;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:800;margin-left:5px}.magazine-open{width:100%;margin-top:10px;border:0;background:#8b2f5e;color:#fff;border-radius:11px;padding:10px;font-weight:800}.magazine-links{display:grid;gap:8px;margin-top:10px}.magazine-link{border:1px solid #eadde4;background:#fff;color:#6f294d;border-radius:11px;padding:10px;text-align:left;font-weight:700}
+/* Ajustes de legibilidade da ficha de compra — somente visual */
+.clientpurchase>strong,.purchase-title{color:#fff;font-size:17px;font-weight:800;display:block}.deliverybox label{color:#fff;font-size:14px}.payment-title{color:#fff;font-size:14px;font-weight:800}.purchase-fields{display:grid;grid-template-columns:1fr 1fr;gap:9px}.purchase-fields input{width:100%;min-height:48px;padding:12px 13px;border:1px solid #ddd;border-radius:11px;background:#fff;font-size:15px;color:#222}.purchase-fields input::placeholder{color:#666;opacity:1}@media(max-width:390px){.purchase-fields{grid-template-columns:1fr}}
+@media(min-width:700px){body{padding:20px 0}.app{border-radius:25px;overflow:hidden}}
+.paymentbox{background:#f8f1f5;border-radius:16px;padding:14px;margin-top:12px}.payoptions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.paybtn{border:1px solid #d9cbd2;background:#fff;border-radius:11px;padding:10px;font-weight:700}.paybtn.active{background:#8b2f5e;color:#fff}.payfield{margin-top:10px;display:none}.payfield.show{display:block}.payfield input,.clientselect{width:100%;padding:11px;border:1px solid #ddd;border-radius:10px;background:#fff}.clientcard{border:1px solid #eee;border-radius:15px;padding:13px;margin-bottom:10px}.callbtn{display:inline-block;margin-top:9px;background:#8b2f5e;color:#fff;text-decoration:none;border-radius:10px;padding:8px 11px;font-size:12px;font-weight:700;border:0}.balance{margin-top:8px;font-size:14px;color:#fff;font-weight:800;background:#2a2528;border-radius:10px;padding:9px;line-height:1.5}
+.photoUpload{display:flex;align-items:center;justify-content:center;min-height:90px;border:2px dashed #d5b6c5;border-radius:14px;background:#fff6fa;color:#8b2f5e;font-weight:700;cursor:pointer;text-align:center;padding:12px}.managecard{display:flex;gap:10px;align-items:center;border:1px solid #eee;border-radius:15px;padding:10px;margin-bottom:9px;background:#fff}.managepic{width:62px;height:62px;border-radius:12px;background:#f2e9ed;display:flex;align-items:center;justify-content:center;font-size:30px;overflow:hidden;flex:none}.managepic img{width:100%;height:100%;object-fit:cover}.manageinfo{min-width:0;flex:1}.manageinfo strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.manageprice{font-weight:800;color:#8b2f5e;margin-top:3px}.manageactions{display:flex;gap:5px;margin-top:6px}.miniBtn{border:0;border-radius:9px;padding:7px 9px;font-size:11px;font-weight:700;background:#8b2f5e;color:#fff}.miniBtn.del{background:#eee;color:#7d394f}.phonehint{font-size:11px;color:#888;margin-top:-4px}.clientdetail{margin-top:10px;border-top:1px solid #eee;padding-top:10px}.clientdetail summary{cursor:pointer;font-weight:800;color:#8b2f5e}.historyitem{background:#faf7f8;border-radius:12px;padding:10px;margin-top:8px;font-size:12px}.statusselect{width:100%;padding:9px;border:1px solid #ddd;border-radius:9px;margin-top:7px}.debt{color:#a15f00;font-weight:800}.paid{color:#2d7a4a;font-weight:800}.totalbox{background:#fff;border:1px solid #eee;border-radius:12px;padding:10px;margin-top:8px}.editclient{border:1px solid #8b2f5e;background:#fff;color:#8b2f5e;border-radius:9px;padding:7px 10px;font-weight:700;margin-top:8px}.clientmainbtn{background:#8b2f5e;color:#fff;border:0;border-radius:10px;padding:9px 12px;font-weight:800;margin-top:9px}.historyitem{border:1px solid #3b3539;border-radius:12px;padding:10px;margin-top:9px}.payhistorybtn{margin-top:8px;border:1px solid #8b2f5e;background:#fff;color:#8b2f5e;border-radius:9px;padding:7px 10px;font-weight:700}.clientempty{margin-top:10px;padding:12px;border-radius:12px;background:#201d1f;color:#bbb;font-size:13px}.clientpurchase{background:#181618;border:1px solid #3b3539;border-radius:15px;padding:13px;display:grid;gap:9px}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:9px}.purchaseTotal{font-weight:800;color:#8b2f5e;background:#fff1f7;border-radius:10px;padding:10px}.secondaryBtn{background:#fff!important;color:#8b2f5e!important;border:1px solid #8b2f5e!important}.newitem{background:#242024;border:1px solid #3b3539;border-radius:10px;padding:9px;font-size:13px}.removeitem{float:right;border:0;background:none;color:#d66;font-size:16px}.discountbox{background:#fff7fb;border:1px solid #ead6e1;border-radius:11px;padding:10px}.discountbox label{font-size:12px;font-weight:700;color:#8b2f5e;display:block;margin-bottom:6px}.discountbox input{width:100%;padding:10px;border:1px solid #ddd;border-radius:9px;background:#fff}.moneyinput{font-variant-numeric:tabular-nums} .moneyhint{font-size:11px;color:#999;margin-top:4px}.deliverybox{background:#18151a;border:1px solid #3b3540;border-radius:12px;padding:11px;margin-bottom:10px}.deliverybox label{font-size:13px;font-weight:700;display:block;margin-bottom:7px}.duedatebox{display:none;margin-top:9px}.duedatebox.show{display:block}.duedatebox input{width:100%;padding:11px;border:1px solid #ddd;border-radius:10px;background:#fff}.duewarning{color:#b66b00;font-weight:700}.pay-neutro{background:#eee;color:#777}.payment-status-label{color:#fff;font-weight:800}.duedatebox label{color:#fff}.duedatebox input{color:#222}.overdue{color:#b3261e;font-weight:800}.reminderbtn{margin-top:8px;border:1px solid #d7b65a;background:#fff7d6;color:#805f00;border-radius:9px;padding:8px 10px;font-weight:700}.deliverytag{display:inline-block;padding:4px 8px;border-radius:8px;font-size:12px;font-weight:700;margin-top:5px}
+
+.stock-alerts{margin-top:10px}.stock-alert-box{background:#fff7d6;border:1px solid #e4ca6b;color:#6d5300;border-radius:13px;padding:11px;font-size:12px}.stock-alert-box strong{font-size:13px}.stock-alert-box div{margin-top:5px}.stocktag{margin-top:7px;font-size:11px;font-weight:800;border-radius:8px;padding:5px 7px;display:inline-block}.stocktag.ok{background:#e6f5e8;color:#26723a}.stocktag.low{background:#fff0d8;color:#8a5a00}.stocktag.out{background:#ffe6e6;color:#a62626}.stocktag.neutral{background:#eee;color:#777}.add:disabled{background:#aaa!important}.payment-status-box{margin-top:10px;padding:11px;border-radius:11px;background:#251d22}
+.payment-status-label{font-size:12px;color:#eee;font-weight:700;margin-bottom:6px}
+.payment-status-badge{display:inline-block;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:800}
+.pay-pendente{background:#fff3cd;color:#6b4e00;border:1px solid #e0bf55}.pay-parcial{background:#dff0ff;color:#1f5f8b;border:1px solid #9cc9e8}.pay-pago{background:#e2f5e7;color:#26723a;border:1px solid #9bd0a7}.payment-status-badge{font-size:14px}
+
+.legalbox{margin:18px 0 90px;padding:16px;border:1px solid #333;border-radius:16px;background:#151515;color:#ddd;font-size:12px;line-height:1.55}.legalbox h3{margin:0 0 8px;color:#fff;font-size:15px}.legalbox p{margin:7px 0}.legalbtn{background:#252525!important;color:#fff!important;border:1px solid #555!important;font-size:12px!important;padding:10px 12px!important;border-radius:10px!important}.legalpanel{padding-bottom:110px}.legalpanel .legalcard{background:#181818;border:1px solid #333;border-radius:16px;padding:16px;margin-bottom:12px}.legalpanel h3{margin:0 0 8px;color:#fff}.legalpanel p,.legalpanel li{font-size:13px;line-height:1.6;color:#ddd}.legalpanel ul{padding-left:20px}.copyright{margin-top:14px;text-align:center;color:#999;font-size:11px}.disclaimer{background:#21151b;border-color:#5a3044}.appfooter{margin:18px 18px 95px;padding:14px 12px;text-align:center;border-top:1px solid #eee;color:#777;font-size:10.5px;line-height:1.55}.appfooter strong{color:#555}.supplierbox{background:#f8f1f5;border-radius:18px;padding:15px}.supplierlist{margin-top:10px}.suppliercard{background:#fff;border:1px solid #eadde4;border-radius:13px;padding:11px;margin-top:8px}.suppliercard strong{display:block}.suppliercard small{display:block;color:#777;margin-top:3px}.supplieractions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.whatsappbtn{background:#2e9b57!important;color:#fff!important}.supplierempty{font-size:12px;color:#777;margin-top:9px}.reorderbox{background:#fff7e8;border:1px solid #ead7ad;border-radius:18px;padding:15px;margin-bottom:14px}.reorderbox h3{margin:0 0 8px;color:#7a5611}.reordercard{background:#fff;border:1px solid #eadde4;border-radius:13px;padding:11px;margin-top:8px}.reordercard strong{display:block}.reorderitems{font-size:13px;color:#555;line-height:1.55;margin-top:6px}.reorderactions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.orderwa{background:#2e9b57!important;color:#fff!important}.stock-alert-box .reorder-alert-btn{margin-top:7px;background:#8b2f5e!important;color:#fff!important;padding:8px 10px!important;font-size:12px!important}
+.twocol input,.twocol select{min-width:0;width:100%}
+.top{align-items:flex-start;gap:10px}.top>div:first-child{min-width:0;flex:1}.top .iconbtn{flex:none}.brand-nav{scrollbar-width:none}.brand-nav::-webkit-scrollbar{display:none}
+.admin .addr-toggle{width:100%;margin:0;display:flex;justify-content:space-between;align-items:center;border:1px solid #eadde4;background:#fff;color:#6f294d;border-radius:11px;padding:12px;font-size:14px;font-weight:800;text-align:left}
+.magbrand{border:1px solid #eadde4;border-radius:13px;padding:11px;margin-top:9px;background:#fff}.magbrand-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.magbrand-head strong{font-size:15px;color:#29252a}.admin .maglinkbtn{margin:0;border:1px solid #dbc9d3;background:#fff;color:#6f294d;border-radius:9px;padding:6px 9px;font-size:11px;font-weight:800}a.magazine-open{display:block;text-align:center;text-decoration:none}.magnolink{font-size:12px;color:#999;margin-top:8px}
+.licensecard{background:#fff;border:1px solid #eadde4;border-radius:13px;padding:11px;margin-top:9px;font-size:13px}.licensecard .lnk{font-size:11px;color:#777;word-break:break-all;margin-top:4px}.accessjson{width:100%;min-height:120px;margin-top:8px;padding:10px;border:1px solid #ddd;border-radius:10px;font-family:monospace;font-size:11px;background:#fff;color:#333}
+.blockscreen{position:fixed;inset:0;z-index:999;background:rgba(42,16,32,.96);display:flex;align-items:center;justify-content:center;padding:24px}.blockcard{background:#fff;border-radius:20px;padding:24px;text-align:center;max-width:360px;color:#29252a}.blockcard h2{margin:8px 0;color:#8b2f5e}.blockcard button{border:0;background:#8b2f5e;color:#fff;padding:11px 16px;border-radius:11px;font-weight:800;margin-top:8px}
+.namebtn{border:0;background:#ffffff26;color:#fff;border-radius:10px;width:30px;height:30px;font-size:14px;margin-left:4px;vertical-align:middle;padding:0}.namebtn:active{background:#ffffff40}
+.coverwrap{position:relative}.coverbtn{position:absolute;top:8px;right:8px;width:36px;height:36px;border:0;border-radius:50%;background:#000000a6;color:#fff;font-size:16px;padding:0;z-index:2}.coverbtn.reset{right:52px}.app-cover.custom{object-fit:cover}
+.accessbar{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#efe6ec;color:#6f294d;padding:9px 14px;font-size:13px}.accessbar.low{background:#fff3cd;color:#6b4e00}.accessbar a{background:#8b2f5e;color:#fff;border-radius:9px;padding:6px 11px;font-size:12px;font-weight:800;text-decoration:none;white-space:nowrap}.blockcard a.renewbtn{display:inline-block;background:#2e9b57;color:#fff;padding:11px 16px;border-radius:11px;font-weight:800;text-decoration:none;margin:4px 0 10px}
+.home-group-title{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#8b2f5e;margin:20px 2px 9px}.home-group-title:first-child{margin-top:4px}.home-shortcuts{gap:12px;margin-bottom:2px}.home-shortcut{padding:13px 6px}.admin{margin-top:22px}.home-footer{display:flex;gap:10px;justify-content:center;margin:16px 0 6px}.home-footer button{border:1px solid #eadde4;background:#fff;color:#6f294d;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:700}
+</style>
+<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png"><meta name="theme-color" content="#8b2f5e"><meta name="apple-mobile-web-app-capable" content="yes"><meta id="metaAppTitle" name="apple-mobile-web-app-title" content="Cosméticos App"><meta id="metaAppName" name="application-name" content="Cosméticos App">
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="coverwrap"><img class="app-cover" src="capa-vita-home.jpg" alt="Foto de capa"><button class="coverbtn reset" id="coverReset" style="display:none" onclick="resetCover()" aria-label="Voltar para a foto padrão" title="Voltar para a foto padrão">↺</button><button class="coverbtn" onclick="document.getElementById('coverFile').click()" aria-label="Trocar foto de capa" title="Trocar foto de capa">✏️</button><input type="file" id="coverFile" accept="image/*" hidden onchange="pickCover(this)"></div>
+  <div class="cover-caption">Avon Casa • VITA HOME</div>
+  <div class="top"><div><div class="brand"><span class="appNameText">Cosméticos App</span> 🌸 <button class="namebtn" onclick="editAppNameQuick()" aria-label="Editar nome do app" title="Editar nome do app">✏️</button></div><div class="sub">Catálogo e pedidos</div><div class="brand-nav"><button onclick="homeShortcut('Natura')">🌿 Natura</button><button onclick="homeShortcut('Avon')">💄 Avon</button><button onclick="homeShortcut('Avon Casa')">🏠 Avon Casa</button><button onclick="homeShortcut('Jequiti')">🌸 Jequiti</button></div></div><button class="iconbtn" onclick="show('cart')">🛒</button></div>
+  <label class="search">🔎 <input id="globalProductSearch" type="search" placeholder="Buscar produto..." oninput="searchProducts(this.value)"></label>
+</header>
+
+<main class="content">
+<section id="home" class="panel show">
+  <div class="home-group-title">Vendas</div>
+  <div class="home-shortcuts">
+    <button class="home-shortcut" onclick="homeShortcut('Pedidos')"><span>📦</span>Pedidos</button>
+    <button class="home-shortcut" onclick="homeShortcut('Clientes')"><span>👤</span>Clientes</button>
+    <button class="home-shortcut" onclick="show('finance')"><span>📊</span>Financeiro</button>
+  </div>
+  <div class="home-group-title">Catálogo</div>
+  <div class="home-shortcuts">
+    <button class="home-shortcut" onclick="homeShortcut('Kit')"><span>🎁</span>Kits</button>
+    <button class="home-shortcut" onclick="show('magazines')"><span>📖</span>Revistas</button>
+    <button class="home-shortcut" onclick="show('ratings')"><span>⭐</span>Avaliações</button>
+  </div>
+  <div class="home-group-title">Ajuda</div>
+  <div class="home-shortcuts">
+    <button class="home-shortcut" onclick="show('help')"><span>❓</span>Como usar</button>
+    <button class="home-shortcut" onclick="shareApp()"><span>📤</span>Compartilhar</button>
+  </div>
+  <div class="admin" style="text-align:center;padding:24px 16px">
+    <div style="font-size:42px">🛍️</div>
+    <h2 style="margin:8px 0">Seu catálogo</h2>
+    <p style="font-size:13px;color:#aaa;margin:0 0 16px">Cada vendedor cadastra os seus próprios produtos, fotos e preços.</p>
+    <button onclick="show('catalog')">🛍️ Ver meu catálogo</button>
+    <button onclick="show('consultant')">＋ Cadastrar produto</button>
+    <button onclick="show('update')">🔄 Atualizar aplicativo</button>
+    <button class="legalbtn" onclick="show('legal')">🔒 Privacidade, LGPD e informações legais</button>
+  </div>
+  <div class="home-footer">
+    <button title="Área da consultora" aria-label="Área da consultora" onclick="show('consultant')">👩‍💼 Consultora</button>
+    <button title="Área do desenvolvedor" aria-label="Área do desenvolvedor" onclick="show('admin')">🧑‍💻 Desenvolvedor</button>
+  </div>
+</section>
+
+<section id="help" class="panel">
+  <div class="screen-toolbar"><button onclick="goBack()">← Voltar</button><button class="primary" onclick="show('help')">❓ Como usar</button></div>
+  <div class="section-title"><h2>❓ Como usar</h2></div>
+  <div class="admin"><p style="margin-top:0;font-size:13px;color:#666">Um guia rápido para encontrar e usar as principais funções do app <span class="appNameText">Cosméticos App</span>.</p><div class="help-list">
+    <div class="help-item"><strong>🛍️ Produtos e catálogo</strong>Toque em “Ver meu catálogo” para consultar os produtos. Para cadastrar, editar ou excluir um produto, entre em Consultora.</div>
+    <div class="help-item"><strong>👤 Clientes</strong>Na venda à vista, nome e telefone são opcionais. Na venda a prazo, informe nome e telefone; endereço é opcional. A primeira compra pode ser lançada na mesma ficha.</div>
+    <div class="help-item"><strong>📦 Pedidos</strong>Use Pedidos para consultar as vendas registradas e acompanhar os pedidos.</div>
+    <div class="help-item"><strong>💳 Pagamentos</strong>Escolha “Pago total” ou “Pago parcial”. No parcial, informe quanto foi pago e a data do restante.</div>
+    <div class="help-item"><strong>📦 Estoque</strong>O estoque é reduzido quando a venda é registrada. Quando estiver baixo ou zerado, o aplicativo avisa.</div>
+    <div class="help-item"><strong>📖 Revistas</strong>Entre em Revistas e toque na edição para abrir os links online das marcas.</div>
+    <div class="help-item"><strong>⭐ Avaliações</strong>Registre a avaliação recebida e, se quiser, peça a avaliação ao cliente pelo WhatsApp.</div>
+    <div class="help-item"><strong>📤 Compartilhar</strong>Use Compartilhar para enviar o link do aplicativo.</div>
+    <div class="help-item"><strong>🔄 Atualizar aplicativo</strong>Entre em Atualizar aplicativo para verificar a versão publicada e recarregar o app.</div>
+  </div></div>
+</section>
+
+<section id="catalog" class="panel">
+  <div class="screen-toolbar"><button onclick="goBack()">← Voltar</button><button onclick="screenSaveAction('catalog')">💾 Salvar</button><button onclick="screenEditAction('catalog')">✏️ Editar</button><button class="danger" onclick="screenDeleteAction('catalog')">🗑️ Excluir</button></div>
+  <div class="section-title"><h2>Catálogo</h2><span id="filterText" class="see">Todos</span></div>
+  <div class="cats">
+    <button class="cat active" data-filter="Todos" onclick="renderProducts('Todos',this)">Todos</button>
+    <button class="cat" data-filter="Natura" onclick="renderProducts('Natura',this)">Natura</button>
+    <button class="cat" data-filter="Avon" onclick="renderProducts('Avon',this)">Avon</button>
+    <button class="cat" data-filter="Avon Casa" onclick="renderProducts('Avon Casa',this)">Avon Casa</button>
+    <button class="cat" data-filter="Jequiti" onclick="renderProducts('Jequiti',this)">Jequiti</button>
+    <button class="cat" data-filter="Kit" onclick="renderProducts('Kit',this)">Kits</button>
+    <button class="cat" data-filter="Perfumes" onclick="renderProducts('Perfumes',this)">Perfumes</button>
+    <button class="cat" data-filter="Maquiagem" onclick="renderProducts('Maquiagem',this)">Maquiagem</button>
+    <button class="cat" data-filter="Presentes" onclick="renderProducts('Presentes',this)">🎁 Presentes</button>
+  </div>
+  <div style="font-size:11px;color:#777;margin:8px 2px 0">🎁 Presentes: Dia das Mães, Dia dos Pais, Dia das Crianças, Dia dos Namorados, Natal, Aniversário, Formatura, Chá de bebê e outras ocasiões.</div>
+  <div id="stockAlerts" class="stock-alerts"></div><br>
+  <div class="products" id="allProducts"></div>
+</section>
+
+<section id="magazines" class="panel">
+  <div class="screen-toolbar"><button onclick="goBack()">← Voltar</button><button onclick="screenSaveAction('magazines')">💾 Salvar</button><button onclick="screenEditAction('magazines')">✏️ Editar</button><button class="danger" onclick="screenDeleteAction('magazines')">🗑️ Excluir</button></div>
+  <div class="section-title"><h2>📖 Revistas online</h2><span id="magazineStatus" class="see">Online</span></div>
+  <div class="admin">
+    <div id="magazineCurrent"></div>
+    <button onclick="loadOnlineMagazines()" style="margin-top:10px">🔄 Atualizar revistas</button>
+    <p style="font-size:11px;color:#777;margin-bottom:0">As edições são carregadas de uma fonte online própria do app <span class="appNameText">Cosméticos App</span>. Você poderá atualizar o arquivo de revistas sem precisar trocar o index.html.</p>
+  </div>
+  <div id="magazineList" style="margin-top:12px"></div>
+</section>
+
+<section id="cart" class="panel">
+  <div class="screen-toolbar"><button onclick="goBack()">← Voltar</button><button onclick="screenSaveAction('cart')">💾 Salvar</button><button onclick="screenEditAction('cart')">✏️ Editar</button><button class="danger" onclick="screenDeleteAction('cart')">🗑️ Excluir</button></div>
+  <div class="section-title"><h2>🛒 Meu carrinho</h2></div>
+  <div id="cartList"></div>
+</section>
+
+<section id="orders" class="panel">
+  <div class="screen-toolbar"><button onclick="goBack()">← Voltar</button><button onclick="screenSaveAction('orders')">💾 Salvar</button><button onclick="screenEditAction('orders')">✏️ Editar</button><button class="danger" onclick="screenDeleteAction('orders')">🗑️ Excluir</button></div>
+  <div class="section-title"><h2>📦 Meus pedidos</h2><span id="ordersMonthLabel" class="see"></span></div>
+  <div class="admin" style="margin-bottom:12px"><div class="twocol"><input id="ordersMonth" type="month" onchange="renderOrders()"><button onclick="renderOrders()">🔎 Ver mês</button></div><div id="ordersSummary" style="margin-top:10px"></div></div>
+  <div id="ordersList"></div>
+</section>
+
+<section id="finance" class="panel">
+  <div class="screen-toolbar"><button onclick="goBack()">← Voltar</button><button onclick="screenSaveAction('finance')">💾 Salvar</button><button onclick="screenEditAction('finance')">✏️ Editar</button><button class="danger" onclick="screenDeleteAction('finance')">🗑️ Excluir</button></div>
+  <div class="section-title"><h2>📊 Fluxo de caixa</h2></div>
+  <div class="admin">
+    <label style="font-size:13px;font-weight:700">Mês</label>
+    <input id="financeMonth" type="month" onchange="renderFinance()" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px">
+    <div id="financeCards" style="display:grid;gap:9px;margin-top:12px"></div>
+    <div id="financeDetails" style="margin-top:12px"></div>
+    <div style="margin-top:14px"><strong>🧾 Gastos do mês</strong>
+      <div class="twocol" style="margin-top:8px"><input id="expDesc" placeholder="Descrição (ex.: frete)" style="padding:12px;border:1px solid #ddd;border-radius:11px"><input id="expValue" class="moneyinput" type="text" inputmode="decimal" onblur="formatMoneyInput(this)" placeholder="Valor" style="padding:12px;border:1px solid #ddd;border-radius:11px"></div>
+      <button onclick="addExpense()" style="margin:8px 0 0">＋ Lançar gasto</button>
+      <div id="expenseList" style="margin-top:10px"></div></div>
+  </div>
+</section>
+
+<section id="ratings" class="panel">
+  <div class="screen-toolbar"><button onclick="goBack()">← Voltar</button><button onclick="screenSaveAction('ratings')">💾 Salvar</button><button onclick="screenEditAction('ratings')">✏️ Editar</button><button class="danger" onclick="screenDeleteAction('ratings')">🗑️ Excluir</button></div>
+  <div class="section-title"><h2>⭐ Avaliações e ranking</h2></div>
+  <div class="admin"><p style="font-size:13px;color:#666;margin-top:0">Registre as avaliações recebidas dos clientes. O ranking considera a média e a quantidade de avaliações.</p><div id="ratingRanking"></div><hr style="border:0;border-top:1px solid #eee;margin:15px 0"><strong>➕ Registrar avaliação recebida</strong><div style="display:grid;gap:9px;margin-top:10px"><select id="ratingProduct" class="clientselect"></select><select id="ratingStars" class="clientselect"><option value="5">★★★★★ — 5 estrelas</option><option value="4">★★★★☆ — 4 estrelas</option><option value="3">★★★☆☆ — 3 estrelas</option><option value="2">★★☆☆☆ — 2 estrelas</option><option value="1">★☆☆☆☆ — 1 estrela</option></select><input id="ratingClient" placeholder="Nome do cliente (opcional)" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px"><input id="ratingPhone" type="tel" inputmode="tel" maxlength="15" oninput="formatPhone(this)" placeholder="WhatsApp do cliente (opcional)" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px"><button type="button" class="secondaryBtn" onclick="requestRatingWhatsApp()">💬 Pedir avaliação pelo WhatsApp</button><textarea id="ratingComment" placeholder="O que o cliente gostou? (opcional)" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px;min-height:80px"></textarea><button onclick="saveRating()">⭐ Salvar avaliação</button></div></div>
+</section>
+
+<section id="clients" class="panel">
+  <div class="screen-toolbar"><button onclick="goBack()">← Voltar</button><button onclick="screenSaveAction('clients')">💾 Salvar</button><button onclick="screenEditAction('clients')">✏️ Editar</button><button class="danger" onclick="screenDeleteAction('clients')">🗑️ Excluir</button></div>
+<div class="section-title"><h2>👤 Clientes</h2></div>
+<div class="admin">
+<strong>👤 Ficha completa do cliente</strong>
+<p style="margin:6px 0 12px;font-size:13px">Cadastre o cliente e já lance a compra, quantidade e pagamento na mesma ficha.</p>
+<div style="display:grid;gap:9px;margin-top:12px">
+<div style="font-size:11px;color:#777;line-height:1.45">ℹ️ Venda à vista: nome e telefone são opcionais. Venda a prazo: nome e telefone são necessários para registrar o valor a receber e o contato do cliente.</div>
+<input id="clientName" placeholder="Nome do cliente (opcional à vista)" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px">
+<input id="clientPhone" type="tel" inputmode="tel" maxlength="15" oninput="formatPhone(this);updateClientPhoneHint()" placeholder="Telefone (opcional à vista)" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px">
+<div id="clientPhoneHint" class="phonehint">Telefone opcional em venda à vista.</div>
+<button type="button" id="clientWhatsAppBtn" class="secondaryBtn" style="display:none" onclick="openClientWhatsApp()">💬 WhatsApp do cliente</button>
+<div style="border-top:1px solid #3b3539;padding-top:10px;margin-top:3px">
+<button type="button" class="addr-toggle" onclick="toggleAddress()">📍 Endereço do cliente (opcional) <span id="addrArrow">▾ abrir</span></button>
+<div id="addrFields" style="display:none">
+<div class="twocol" style="margin-top:8px"><input id="clientCep" inputmode="numeric" maxlength="9" placeholder="CEP" oninput="formatCep(this)" onblur="lookupCep()" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px"><input id="clientNumber" placeholder="Número" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px"></div>
+<input id="clientAddress" placeholder="Rua / endereço" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px;margin-top:9px">
+<input id="clientComplement" placeholder="Complemento (opcional)" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px;margin-top:9px">
+<input id="clientNeighborhood" placeholder="Bairro" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px;margin-top:9px">
+<input id="clientCityUf" placeholder="Cidade / UF" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px;margin-top:9px">
+<textarea id="clientNotes" placeholder="Observações (opcional)" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px;min-height:70px;margin-top:9px"></textarea>
+</div>
+</div>
+<div class="deliverybox">
+<label>📦 Situação da entrega</label>
+<select id="newDeliveryStatus" class="clientselect"><option>Não entregue</option><option>Entregue</option></select>
+</div>
+<div class="clientpurchase">
+<strong class="purchase-title">🛍️ Primeira compra</strong>
+<select id="newPurchaseProduct" class="clientselect" onchange="fillNewProductPrice()">
+<option value="">Selecionar produto do catálogo</option>
+</select>
+<input id="newPurchaseName" placeholder="Ou digite o produto" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px">
+<div class="purchase-fields"><input id="newPurchaseQty" type="number" min="1" step="1" value="1" oninput="updateNewPurchaseTotal()" placeholder="Quantidade"><input id="newPurchasePrice" class="moneyinput" type="text" inputmode="decimal" oninput="updateNewPurchaseTotal()" onblur="formatMoneyInput(this);updateNewPurchaseTotal()" placeholder="Valor unitário"></div>
+<div class="discountbox"><label>🏷️ Desconto / promoção (opcional)</label><input id="newPurchaseDiscount" class="moneyinput" type="text" inputmode="decimal" oninput="updateNewPurchaseTotal()" onblur="formatMoneyInput(this);updateNewPurchaseTotal()" placeholder="Ex.: R$ 20,00 de desconto por unidade"><div id="newPurchaseFinalUnit" style="font-size:12px;color:#777;margin-top:5px">Valor final por unidade: R$ 0,00</div></div>
+<div id="newPurchaseTotal" class="purchaseTotal">Total do item: R$ 0,00</div><div id="newPurchaseCalc" style="font-size:13px;color:#777;text-align:center;margin-top:-3px">1 unidade × R$ 0,00 = R$ 0,00</div>
+<button type="button" onclick="addNewPurchaseItem()" class="secondaryBtn">💾 Salvar produto na compra</button>
+<div id="newPurchaseItems"></div>
+<div class="purchaseTotal" id="newPurchaseGrandTotal">Total da compra: R$ 0,00</div>
+<div class="payment-title">💳 Pagamento</div>
+<div class="payoptions"><button type="button" id="newPayTotal" class="paybtn active" onclick="setNewPayment('total')">Pago total</button><button type="button" id="newPayPartial" class="paybtn" onclick="setNewPayment('partial')">Pago parcial</button></div>
+<div id="newPartialField" class="payfield"><input id="newPaidAmount" class="moneyinput" type="text" inputmode="decimal" oninput="updateNewBalance()" onblur="formatMoneyInput(this);updateNewBalance()" placeholder="Quanto pagou?"><div id="newRemaining" class="balance">Falta: R$ 0,00</div>
+<div id="newDueDateBox" class="duedatebox"><label style="font-size:13px;font-weight:700;display:block;margin-bottom:6px">📅 Data para pagar o restante</label><input id="newDueDate" type="date" aria-label="Data para pagar o restante" onchange="updateNewBalance()"><div style="font-size:12px;margin-top:5px;color:#777">O app usa esta data para mostrar o vencimento da cobrança.</div></div></div>
+<div class="payment-status-box">
+<div class="payment-status-label">💳 Status do pagamento</div>
+<div id="newPaymentStatus" class="payment-status-badge pay-neutro">Selecione o pagamento</div>
+<div style="font-size:11px;color:#777;margin-top:5px">O status é atualizado automaticamente conforme o valor pago.</div>
+</div>
+</div>
+<button type="button" onclick="saveClientAndPurchase()">💾 Salvar cliente + lançar compra</button>
+</div>
+</div><br><div id="clientsList"></div></section>
+<section id="update" class="panel">
+  <div class="screen-toolbar"><button onclick="goBack()">← Voltar</button><button onclick="screenSaveAction('update')">💾 Salvar</button><button onclick="screenEditAction('update')">✏️ Editar</button><button class="danger" onclick="screenDeleteAction('update')">🗑️ Excluir</button></div>
+  <div class="section-title"><h2>🔄 Atualizar aplicativo</h2></div>
+  <div class="admin">
+    <strong class="appNameText">Cosméticos App</strong>
+    <p style="font-size:13px;color:#666">Versão instalada: <strong id="appVersionLabel">2.9.4</strong></p>
+    <div id="updateStatus" style="padding:12px;border-radius:12px;background:#f5f5f5;font-size:13px">Pronto para verificar.</div>
+    <button style="margin-top:10px" onclick="checkForUpdate()">🔎 Verificar atualização</button>
+    <button style="margin-top:8px" onclick="location.reload()">↻ Recarregar aplicativo</button>
+    <p style="font-size:11px;color:#777;margin-bottom:0">A versão instalada é mostrada acima. O botão verifica o arquivo de versão publicado, quando disponível.</p>
+  </div>
+</section>
+
+<section id="consultant" class="panel">
+  <div class="screen-toolbar"><button onclick="goBack()">← Voltar</button><button onclick="screenSaveAction('consultant')">💾 Salvar</button><button onclick="screenEditAction('consultant')">✏️ Editar</button><button class="danger" onclick="screenDeleteAction('consultant')">🗑️ Excluir</button></div>
+  <div class="section-title"><h2>👩‍💼 Área da consultora</h2></div>
+  <div class="admin" style="margin-bottom:14px">
+    <strong>Área de trabalho da consultora</strong>
+    <p style="font-size:13px;color:#666">Aqui ficam as funções de vendas, clientes, pedidos, catálogo e atendimento. Esta área é separada da área do desenvolvedor.</p>
+    <div class="help-list">
+      <div class="help-item"><strong>📦 Pedidos</strong><button onclick="show('orders')">Abrir pedidos</button></div>
+      <div class="help-item"><strong>👤 Clientes</strong><button onclick="show('clients')">Abrir clientes</button></div>
+      <div class="help-item"><strong>🛍️ Catálogo</strong><button onclick="show('catalog')">Abrir catálogo</button></div>
+      <div class="help-item"><strong>📊 Financeiro</strong><button onclick="show('finance')">Abrir financeiro</button></div>
+    </div>
+  </div>
+  <div class="admin">
+    <strong>📸 Cadastrar / editar produto</strong>
+    <p style="margin:6px 0 12px;font-size:13px">Coloque a foto do produto, nome, marca, categoria e preço. O produto aparecerá automaticamente no catálogo.</p>
+    <input type="hidden" id="editProductId">
+    <div style="display:grid;gap:9px">
+      <label class="photoUpload">📷 <span id="photoLabel">Escolher foto do produto</span><input id="productPhoto" type="file" accept="image/*" onchange="previewProductPhoto(event)" style="display:none"></label>
+      <img id="productPreview" style="display:none;width:100%;height:150px;object-fit:contain;border-radius:14px;background:#eee">
+      <input id="productName" placeholder="Nome do produto" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px">
+      <select id="productBrand" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px"><option>Natura</option><option>Avon</option><option>Avon Casa</option><option>Jequiti</option></select>
+      <input id="productCategory" placeholder="Categoria (ex.: Perfumes, Maquiagem)" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px">
+      <input id="productPrice" class="moneyinput" type="text" inputmode="decimal" onblur="formatMoneyInput(this)" oninput="updateProductMargin()" placeholder="Preço de venda" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px">
+      <input id="productCost" class="moneyinput" type="text" inputmode="decimal" onblur="formatMoneyInput(this)" oninput="updateProductMargin()" placeholder="Preço de compra (quanto você paga)" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px">
+      <div id="productMargin" class="moneyhint" style="font-size:13px;margin-top:-2px"></div>
+      <div class="twocol"><input id="productStock" type="number" min="0" step="1" inputmode="numeric" placeholder="Estoque atual"><input id="productMinStock" type="number" min="0" step="1" inputmode="numeric" placeholder="Avisar quando chegar em"></div>
+      <input id="productTargetStock" type="number" min="0" step="1" inputmode="numeric" placeholder="Estoque desejado após reposição (opcional)" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px">
+      <select id="productSupplier" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px"><option value="">Sem fornecedor definido</option></select>
+      <div style="font-size:11px;color:#777">Quando o estoque atingir o limite, o produto entra automaticamente na <strong>lista de reposição</strong>. Se houver fornecedor cadastrado, o aplicativo prepara a lista e o pedido para WhatsApp.</div>
+      <button onclick="saveProduct()">💾 Salvar produto</button>
+      <button onclick="clearProductForm()" style="background:#fff;color:#8b2f5e;border:1px solid #8b2f5e">↺ Limpar</button>
+    </div>
+  </div>
+  <br>
+  <div id="reorderSection"></div>
+  <div class="section-title"><h2>📲 Fornecedores</h2></div>
+  <div class="supplierbox">
+    <strong>👤 Cadastrar fornecedor</strong>
+    <p style="margin:6px 0 12px;font-size:13px">Cadastre quem fornece seus produtos e deixe o WhatsApp pronto para fazer pedidos de reposição.</p>
+    <div style="display:grid;gap:9px">
+      <input id="supplierName" placeholder="Nome do fornecedor" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px">
+      <input id="supplierPhone" type="tel" inputmode="tel" maxlength="15" oninput="formatPhone(this)" placeholder="WhatsApp do fornecedor" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px">
+      <input id="supplierNote" placeholder="Observação (opcional)" style="padding:12px;border:1px solid #ddd;border-radius:11px;font-size:14px">
+      <button onclick="saveSupplier()">💾 Salvar fornecedor</button>
+    </div>
+    <div id="supplierList" class="supplierlist"></div>
+  </div>
+  <br>
+  <div class="section-title"><h2>📋 Produtos cadastrados</h2></div>
+  <div id="manageProducts"></div>
+
+</section>
+
+<section id="admin" class="panel">
+  <div class="screen-toolbar"><button onclick="goBack()">← Voltar</button><button onclick="screenSaveAction('admin')">💾 Salvar</button><button onclick="screenEditAction('admin')">✏️ Editar</button><button class="danger" onclick="screenDeleteAction('admin')">🗑️ Excluir</button></div>
+  <div class="section-title"><h2>🧑‍💻 Área do desenvolvedor</h2></div>
+  <div class="admin" style="margin-bottom:14px">
+    <strong>🔐 Controle de acesso da consultora</strong>
+    <p style="font-size:13px;color:#666">O desenvolvedor controla aqui o acesso da consultora. Cada consultora recebe um link próprio. Para bloquear ou liberar, mude o status aqui e atualize o arquivo <b>acessos.json</b> no GitHub.</p>
+    <div class="twocol">
+      <input id="licenseName" placeholder="Nome da consultora">
+      <input id="licenseDays" type="number" min="1" placeholder="Dias de acesso">
+    </div>
+    <div class="twocol" style="margin-top:8px">
+      <select id="licenseStatus"><option value="trial">Teste</option><option value="active">Ativa</option><option value="blocked">Bloqueada</option></select>
+      <input id="licenseExpiry" type="date">
+    </div>
+    <input id="licenseCode" placeholder="Código do link (criado automaticamente)" style="width:100%;margin-top:8px;padding:10px;border:1px solid #ddd;border-radius:10px">
+    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:9px">
+      <button onclick="setLicensePreset(7)">7 dias</button>
+      <button onclick="setLicensePreset(30)">1 mês</button>
+      <button onclick="setLicensePreset(180)">6 meses</button>
+      <button onclick="setLicensePreset(365)">1 ano</button>
+      <button onclick="setLicensePreset(1095)">3 anos</button>
+      <button onclick="setLicensePreset(0)">Sem vencimento</button>
+    </div>
+    <button onclick="saveLicense()" style="margin-top:9px">💾 Salvar acesso</button>
+    <div id="licenseStatusBox" class="reorderbox" style="margin-top:10px"></div>
+    <div style="margin-top:12px"><strong>📄 Texto do arquivo acessos.json</strong>
+      <p style="font-size:12px;color:#666;margin:5px 0 0">Depois de salvar, ativar ou bloquear, copie este texto e cole no arquivo <b>acessos.json</b> do GitHub (na mesma pasta do index.html). Vale no celular dela assim que ela abrir o app de novo.</p>
+      <textarea id="accessJson" class="accessjson" readonly></textarea>
+      <button onclick="copyAccessJson()">📋 Copiar texto do arquivo</button>
+    </div>
+  </div>
+  <div class="admin"><strong>🛠️ Configurações do desenvolvedor</strong><p style="font-size:13px;color:#666">Esta área é exclusiva para configurações do aplicativo e controle de acesso da consultora.</p>
+    <strong>✏️ Nome do app neste aparelho</strong>
+    <p style="font-size:12px;color:#666;margin:5px 0 0">É o nome que aparece no topo do app e embaixo do ícone. No link de cada consultora, o app usa automaticamente o nome dela.</p>
+    <input id="appNameInput" maxlength="30" placeholder="Ex.: Maria Cosméticos" style="width:100%;margin-top:8px;padding:10px;border:1px solid #ddd;border-radius:10px">
+    <button onclick="saveAppNameFromInput()">💾 Salvar nome</button>
+  </div>
+</section>
+
+<section id="legal" class="panel legalpanel">
+  <div class="screen-toolbar"><button onclick="goBack()">← Voltar</button><button onclick="screenSaveAction('legal')">💾 Salvar</button><button onclick="screenEditAction('legal')">✏️ Editar</button><button class="danger" onclick="screenDeleteAction('legal')">🗑️ Excluir</button></div>
+  <div class="section-title"><h2>🔒 Privacidade e informações legais</h2></div>
+  <div class="legalcard">
+    <h3>📋 Sobre os dados dos clientes</h3>
+    <p>O aplicativo pode armazenar informações digitadas pelo usuário para controlar clientes e vendas, como nome, telefone, produtos comprados, valores pagos, valores a receber e datas de vencimento.</p>
+    <p><strong>Nesta versão de teste, esses dados ficam armazenados localmente no dispositivo/navegador por meio do armazenamento do aplicativo.</strong> O aplicativo não envia automaticamente esses dados para a Natura, Avon ou Jequiti.</p>
+  </div>
+  <div class="legalcard">
+    <h3>🛡️ Boas práticas de privacidade</h3>
+    <ul>
+      <li>Cadastre somente os dados necessários para o controle das vendas.</li>
+      <li>Evite compartilhar o aparelho ou o acesso ao aplicativo com pessoas não autorizadas.</li>
+      <li>Antes de apagar o aplicativo, faça backup dos dados caso essa função esteja disponível na versão utilizada.</li>
+      <li>O titular dos dados pode ter direitos previstos na LGPD, incluindo informação, acesso, correção e, nas hipóteses aplicáveis, eliminação dos dados.</li>
+    </ul>
+    <p style="font-size:11px;color:#999">Este texto é um aviso informativo para o aplicativo e não substitui uma análise jurídica ou uma política de privacidade específica para a forma como o aplicativo será utilizado.</p>
+  </div>
+  <div class="legalcard disclaimer">
+    <h3>⚠️ Aplicativo independente</h3>
+    <p><strong>Este aplicativo não é um aplicativo oficial da Natura, da Avon ou da Jequiti.</strong></p>
+    <p>Não possui vínculo, patrocínio, autorização, representação ou afiliação com essas empresas. Os nomes e marcas Natura, Avon e Jequiti pertencem aos seus respectivos titulares.</p>
+    <p>O aplicativo é destinado exclusivamente ao <strong>controle de estoque, produtos, clientes, vendas e pedidos de vendedores independentes</strong>.</p>
+  </div>
+  <div class="copyright">© 2026 Luís Ricardo de Almeida Siqueira — Todos os direitos reservados.</div>
+</section>
+
+<div class="appfooter">
+  <strong>© 2026 Luís Ricardo de Almeida Siqueira — Todos os direitos reservados.</strong><br>
+  Versão 2.9.4<br>
+  Aplicativo independente para controle de estoque, produtos, clientes, vendas e pedidos de vendedores.<br>
+  <strong>Não é um aplicativo oficial da Natura, Avon ou Jequiti.</strong> Não possui vínculo, patrocínio, autorização, representação ou afiliação com essas empresas.
+</div>
+</main>
+
+</div>
+
+<script>
+const defaultProducts=[];
+let products=JSON.parse(localStorage.getItem('catalogo_natura_avon')||'null')||[];
+const demoNames=['Perfume Natura','Hidratante Corporal','Batom Avon','Perfume Avon','Shampoo Natura','Creme para as mãos'];
+if(Array.isArray(products) && products.length===6 && products.every(x=>demoNames.includes(x.n))){products=[];localStorage.removeItem('catalogo_natura_avon');}
+let cart=[];
+let newPurchaseItems=[];let pendingClientIndex=null;
+let currentFilter='Todos';
+
+/* ===== Dinheiro: sempre arredondado em centavos (corrige "pago" que ficava em aberto) ===== */
+function round2(v){return Math.round((Number(v)||0)*100)/100}
+function balanceOf(total,paid){const b=round2(Math.max(0,round2(total)-round2(paid)));return b<0.01?0:b}
+function paymentStatus(o){const bal=Number(o.balance)||0,paid=Number(o.paid)||0;return bal<=0?'Pago':(paid>0?'Parcial':'Pendente')}
+function applyPaymentState(o){o.total=round2(o.total);o.paid=round2(Math.min(Number(o.paid)||0,o.total));o.balance=balanceOf(o.total,o.paid);o.status=paymentStatus(o);o.payment=o.balance===0?'Total':'Parcial';return o}
+
+function parseMoneyInput(v){
+ v=String(v??'').trim().replace(/R\$\s?/g,'').replace(/\s/g,'');
+ if(!v)return 0;
+ if(v.includes(',')){ v=v.replace(/\./g,'').replace(',','.'); }
+ return Math.max(0,round2(Number(v)||0));
+}
+function formatMoneyInput(el){
+ let v=String(el.value||'').trim(); if(!v)return;
+ let n=parseMoneyInput(v);
+ el.value=n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function moneyValue(id){return parseMoneyInput(document.getElementById(id)?.value||0)}
+function money(v){return (Number(v)||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+function stockNumber(x){return x&&x.stock===undefined?999999:Math.max(0,Number(x.stock??0)||0)}
+function stockTracked(x){return x&&x.stock!==undefined}
+function minStockNumber(x){return Math.max(0,Number(x.minStock??1)||0)}
+function stockLabel(x){if(!stockTracked(x))return '<div class="stocktag neutral">📦 Estoque não definido</div>';const s=stockNumber(x),m=minStockNumber(x);if(s<=0)return `<div class="stocktag out">⛔ Sem estoque — fazer pedido</div>`;if(s<=m)return `<div class="stocktag low">⚠️ Estoque baixo: ${s} unidade${s===1?'':'s'}</div>`;return `<div class="stocktag ok">📦 Estoque: ${s}</div>`}
+function card(x){const visual=x.photo?`<img src="${x.photo}" style="width:100%;height:100%;object-fit:contain">`:x.e;const s=stockNumber(x);return `<article class="product"><div class="pic">${visual}</div><div class="pbody"><div class="tag">${x.b}</div><h3>${x.n}</h3><div class="price">${money(Number(x.p))}</div>${stockLabel(x)}<button class="add" onclick="add(${x.id})" ${s<=0?'disabled style="opacity:.5;cursor:not-allowed"':''}>${s<=0?'Sem estoque':'Adicionar'}</button></div></article>`}
+function renderProducts(filter,el){
+ if(filter===undefined||filter===null)filter=currentFilter;
+ currentFilter=filter;
+ if(!el)el=document.querySelector(`.cat[data-filter="${filter}"]`);
+ let q=(document.getElementById('globalProductSearch')?.value||'').trim().toLowerCase();
+ let a=products.filter(x=>(filter==='Todos'||x.b===filter||x.c===filter) && (!q || (x.n+' '+x.b+' '+x.c).toLowerCase().includes(q)));
+ document.getElementById('allProducts').innerHTML=a.length?a.map(card).join(''):`<div class="empty" style="grid-column:1/-1">${products.length?'Nenhum produto encontrado neste filtro.':'Nenhum produto cadastrado ainda.<br><br>Cadastre em Consultora.'}</div>`;
+ renderStockAlerts();
+ document.getElementById('filterText').textContent=el?el.textContent.trim():filter;
+ document.querySelectorAll('.cat').forEach(x=>x.classList.remove('active')); if(el)el.classList.add('active');
+}
+function searchProducts(q){
+ const cat=document.getElementById('catalog');
+ if(q&&!cat.classList.contains('show')){show('catalog');}
+ renderProducts(currentFilter);
+}
+function cartQtyFor(id){return cart.reduce((n,x)=>n+(x&&x.id===id?1:0),0)}
+function add(id){let x=products.find(p=>p.id===id);if(!x)return;const available=stockNumber(x)-cartQtyFor(id);if(available<=0){alert('⚠️ Este produto não tem estoque disponível.');return}cart.push(x);updateCart();show('cart')}
+function updateCart(){
+ const el=document.getElementById('cartList');if(!cart.length){el.innerHTML='<div class="empty">Seu carrinho está vazio.<br><br>Escolha seus produtos no catálogo.</div>';return}
+ const total=round2(cart.reduce((s,x)=>s+Number(x.p),0)),clients=JSON.parse(localStorage.getItem('clientes_natura_avon')||'[]');
+ const opts=clients.length?'<option value="">Selecione o cliente</option>'+clients.map((c,i)=>`<option value="${i}" ${pendingClientIndex!==null&&Number(pendingClientIndex)===i?'selected':''}>${c.name} — ${c.phone||'sem telefone'}</option>`).join(''):'<option value="">Nenhum cliente cadastrado</option>';
+ el.innerHTML=cart.map((x,i)=>`<div class="order"><strong>${x.e||'🛍️'} ${x.n}</strong>${money(x.p)} <span style="font-size:11px;color:#777">• estoque disponível: ${stockNumber(x)}</span> <button onclick="cart.splice(${i},1);updateCart()" style="float:right;border:0;background:none">🗑️</button></div>`).join('')+`<div class="order"><strong>Total: ${money(total)}</strong><div class="paymentbox"><strong>💳 Pagamento</strong><div style="margin-top:8px;font-size:13px">Cliente</div><select id="orderClient" class="clientselect">${opts}</select><div style="margin-top:10px;font-size:13px">Pagamento</div><div class="payoptions"><button id="payTotalBtn" class="paybtn active" onclick="setPayment('total')">Pagamento total</button><button id="payPartialBtn" class="paybtn" onclick="setPayment('partial')">Pagamento parcial</button></div><div id="partialField" class="payfield"><input id="paidAmount" class="moneyinput" type="text" inputmode="decimal" placeholder="Quanto o cliente pagou?" onblur="formatMoneyInput(this);updateRemaining()"><div id="remainingAmount" class="balance">Falta: ${money(total)}</div></div></div><button class="add" onclick="sendOrder()">📲 Enviar pedido pelo WhatsApp</button></div>`;
+ const input=document.getElementById('paidAmount');if(input)input.addEventListener('input',updateRemaining);
+}
+function setPayment(type){const a=document.getElementById('payTotalBtn'),b=document.getElementById('payPartialBtn'),f=document.getElementById('partialField');a.classList.toggle('active',type==='total');b.classList.toggle('active',type==='partial');f.classList.toggle('show',type==='partial');if(type==='partial')updateRemaining();}
+function updateRemaining(){const t=round2(cart.reduce((s,x)=>s+Number(x.p),0)),p=parseMoneyInput(document.getElementById('paidAmount')?.value||0),e=document.getElementById('remainingAmount');if(e)e.textContent='Falta: '+money(balanceOf(t,p));}
+function updateClientPhoneHint(){const p=document.getElementById('clientPhone')?.value||'';const h=document.getElementById('clientPhoneHint');const b=document.getElementById('clientWhatsAppBtn');if(h)h.textContent=p?'Telefone informado: '+p:'Telefone opcional em venda à vista.';if(b)b.style.display=normalizePhone(p).length>=10?'block':'none';}
+function openClientWhatsApp(){openClientWhatsAppByPhone(normalizePhone(document.getElementById('clientPhone')?.value||''));}
+function openClientWhatsAppByPhone(phone){if(phone.length<10){alert('Este cliente não tem um telefone válido.');return}window.location.href='https://wa.me/55'+phone;}
+function formatCep(input){let v=(input.value||'').replace(/\D/g,'').slice(0,8);input.value=v.length>5?v.slice(0,5)+'-'+v.slice(5):v;}
+async function lookupCep(){const raw=(document.getElementById('clientCep')?.value||'').replace(/\D/g,'');if(raw.length!==8)return;try{const r=await fetch('https://viacep.com.br/ws/'+raw+'/json/');const d=await r.json();if(d.erro){alert('CEP não encontrado.');return}document.getElementById('clientAddress').value=d.logradouro||'';document.getElementById('clientNeighborhood').value=d.bairro||'';document.getElementById('clientCityUf').value=(d.localidade||'')+(d.uf?' / '+d.uf:'');}catch(e){alert('Não foi possível consultar o CEP agora. Você pode preencher o endereço manualmente.');}}
+function normalizePhone(v){return (v||'').replace(/\D/g,'')}
+function formatPhone(input){let v=normalizePhone(input.value).slice(0,11);if(v.length<=2)input.value=v;else if(v.length<=7)input.value='('+v.slice(0,2)+') '+v.slice(2);else input.value='('+v.slice(0,2)+') '+v.slice(2,7)+'-'+v.slice(7);}
+function decrementStock(items){
+ const changes={};
+ (items||[]).forEach(it=>{if(it&&it.productId!=null){changes[it.productId]=(changes[it.productId]||0)+Math.max(0,Number(it.qty||1));}});
+ Object.keys(changes).forEach(id=>{const p=products.find(x=>String(x.id)===String(id));if(p&&stockTracked(p))p.stock=Math.max(0,stockNumber(p)-changes[id]);});
+ localStorage.setItem('catalogo_natura_avon',JSON.stringify(products));
+}
+function validateStock(items){
+ const need={};(items||[]).forEach(it=>{if(it&&it.productId!=null)need[it.productId]=(need[it.productId]||0)+Math.max(0,Number(it.qty||1));});
+ for(const id of Object.keys(need)){const p=products.find(x=>String(x.id)===String(id));if(p&&stockTracked(p)&&need[id]>stockNumber(p))return `Estoque insuficiente para ${p.n}. Disponível: ${stockNumber(p)}.`;}
+ return '';
+}
+function renderStockAlerts(){
+ const low=products.filter(x=>stockNumber(x)<=minStockNumber(x));
+ const el=document.getElementById('stockAlerts');if(!el)return;
+ if(!low.length){el.innerHTML='';return;}
+ el.innerHTML=`<div class="stock-alert-box"><strong>🔔 Atenção ao estoque</strong>${low.map(x=>`<div style="margin-top:5px">${x.n}: ${stockNumber(x)<=0?'<strong>Sem estoque — fazer pedido</strong>':'<strong>Estoque baixo: '+stockNumber(x)+'</strong>'}</div>`).join('')}<button class="reorder-alert-btn" onclick="openReorderList()">🛒 Ver lista para fazer pedido</button></div>`;
+}
+function suggestedReorderQty(p){const s=stockNumber(p),target=Number(p.targetStock||0);if(target>0)return Math.max(0,Math.ceil(target-s));return Math.max(1,Math.ceil(minStockNumber(p)-s));}
+function reorderItems(){return products.filter(x=>stockNumber(x)<=minStockNumber(x)).map(p=>({p,qty:suggestedReorderQty(p)})).filter(x=>x.qty>0)}
+function renderReorderList(){
+ const el=document.getElementById('reorderSection');if(!el)return;const items=reorderItems();
+ if(!items.length){el.innerHTML='';return;}
+ const grouped={};items.forEach(({p,qty})=>{const sid=p.supplierId||'none';(grouped[sid] ||= []).push({p,qty});});
+ const list=suppliers();
+ const cards=Object.entries(grouped).map(([sid,arr])=>{const supplier=list.find(x=>String(x.id)===String(sid));const title=supplier?supplier.name:'Fornecedor não definido';const lines=arr.map(({p,qty})=>`• ${p.n}: pedir ${qty} unidade${qty===1?'':'s'}`).join('\n');const wa=supplier?'55'+supplier.phone:'';const msg=supplier?encodeURIComponent('Olá, '+supplier.name+'! Quero fazer um pedido de reposição.\n\n'+lines):'';return `<div class="reordercard"><strong>📦 ${title}</strong><div class="reorderitems">${arr.map(({p,qty})=>`• <strong>${p.n}</strong> — pedir ${qty} unidade${qty===1?'':'s'} (estoque atual: ${stockNumber(p)})`).join('<br>')}</div><div class="reorderactions">${supplier?`<button class="miniBtn orderwa" onclick="openSupplierWhatsApp('${wa}','${msg}')">💬 Fazer pedido pelo WhatsApp</button>`:`<button class="miniBtn" onclick="goToSupplierForm()">＋ Cadastrar fornecedor</button>`}</div></div>`}).join('');
+ el.innerHTML=`<div class="reorderbox"><h3>🛒 Lista de reposição</h3><div style="font-size:12px;color:#666">Os produtos que chegaram ao limite de estoque ficam aqui automaticamente. Você já sabe <strong>o que pedir e a quantidade sugerida</strong>.</div>${cards}</div>`;
+}
+function goToSupplierForm(){show('consultant');setTimeout(()=>{const e=document.getElementById('supplierName');if(e){e.scrollIntoView({behavior:'smooth',block:'center'});e.focus();}},300)}
+function openReorderList(){show('consultant');setTimeout(()=>document.getElementById('reorderSection')?.scrollIntoView({behavior:'smooth',block:'start'}),300)}
+
+function checkStockAlerts(){
+ const low=products.filter(x=>stockNumber(x)<=minStockNumber(x));if(!low.length)return;
+ const lines=low.map(x=>stockNumber(x)<=0?`${x.n}: SEM ESTOQUE — fazer pedido`:`${x.n}: estoque baixo (${stockNumber(x)})`);
+ if(document.visibilityState==='visible')setTimeout(()=>alert('🔔 Aviso de estoque\n\n'+lines.join('\n')),650);
+}
+
+function sendOrder(){
+ if(!cart.length)return;
+ const total=round2(cart.reduce((s,x)=>s+Number(x.p),0)),partial=document.getElementById('partialField')?.classList.contains('show');
+ const paid=partial?parseMoneyInput(document.getElementById('paidAmount')?.value||0):total;
+ if(partial&&(paid<0||paid>total)){alert('Informe um valor pago entre R$ 0,00 e o total do pedido.');return}
+ const clients=JSON.parse(localStorage.getItem('clientes_natura_avon')||'[]'),ci=document.getElementById('orderClient')?.value;
+ if(ci===''||ci===undefined||!clients[Number(ci)]){alert('Selecione um cliente antes de enviar o pedido.\nSe ainda não tiver, cadastre em Clientes.');return}
+ const client=clients[Number(ci)];
+ const orders=JSON.parse(localStorage.getItem('pedidos_natura_avon')||'[]');
+ const cartItems=cart.map(x=>({name:x.n,brand:x.b,price:Number(x.p),qty:1,total:Number(x.p),productId:x.id,cost:costOf(x.id)}));const stockError=validateStock(cartItems);if(stockError){alert('⚠️ '+stockError);return}
+ const order=applyPaymentState({id:Date.now(),date:new Date().toLocaleDateString('pt-BR'),isoDate:new Date().toISOString(),client:client.name,phone:client.phone,products:cartItems,total,paid});
+ orders.push(order);localStorage.setItem('pedidos_natura_avon',JSON.stringify(orders));decrementStock(cartItems);renderProducts();renderManageProducts();
+ client.orders=client.orders||[];client.orders.push(order);clients[Number(ci)]=client;localStorage.setItem('clientes_natura_avon',JSON.stringify(clients));renderClients();
+ let msg='Pedido — '+appName()+'\nCliente: '+client.name+'\nTelefone: '+(client.phone||'')+'\nTotal: '+money(order.total)+'\nPagamento: '+order.payment+'\nPago: '+money(order.paid)+'\nFalta: '+money(order.balance)+'\nStatus: '+order.status+'\n\nProdutos:\n';
+ cart.forEach(x=>msg+='- '+x.n+': '+money(x.p)+'\n');
+ pendingClientIndex=null;cart=[];updateCart();alert('Pedido salvo na ficha do cliente e preparado para o WhatsApp.');
+ window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+}
+function screenSaveAction(id){
+ if(id==='clients'){saveClientAndPurchase();return}
+ if(id==='admin'){saveLicense();return}
+ if(id==='consultant'){const name=document.getElementById('productName')?.value?.trim();if(name){saveProduct();}else{alert('Use os botões de salvar da função que estiver preenchendo.');}return}
+ if(id==='ratings'){saveRating();return}
+ if(id==='magazines'){loadOnlineMagazines();return}
+ alert('Não há um cadastro para salvar nesta tela.');
+}
+function screenEditAction(id){
+ if(id==='clients'){
+   const c=JSON.parse(localStorage.getItem('clientes_natura_avon')||'[]');
+   if(!c.length){alert('Ainda não há cliente para editar.');return}
+   const names=c.map((x,i)=>(i+1)+'. '+x.name).join('\n');
+   const n=prompt('Digite o número do cliente que deseja editar:\n\n'+names);
+   const i=Number(n)-1;if(!Number.isInteger(i)||!c[i])return;editClient(i);return;
+ }
+ if(id==='admin'){const l=licenseList();if(!l.length){alert('Ainda não há consultora cadastrada.');return}const n=prompt('Digite o número da consultora que deseja editar:\n\n'+l.map((x,i)=>(i+1)+'. '+x.name).join('\n'));const i=Number(n)-1;if(l[i])fillLicenseForm(l[i].code);return;}
+ alert('Nesta tela, a edição é feita diretamente nos campos ou registros disponíveis.');
+}
+function screenDeleteAction(id){
+ if(id==='clients'){
+   const c=JSON.parse(localStorage.getItem('clientes_natura_avon')||'[]');if(!c.length){alert('Ainda não há cliente para excluir.');return}
+   const names=c.map((x,i)=>(i+1)+'. '+x.name).join('\n');const n=prompt('Digite o número do cliente que deseja excluir:\n\n'+names);const i=Number(n)-1;if(Number.isInteger(i)&&c[i])deleteClient(i);return;
+ }
+ if(id==='admin'){const l=licenseList();if(!l.length){alert('Ainda não há consultora cadastrada.');return}const n=prompt('Digite o número da consultora que deseja excluir:\n\n'+l.map((x,i)=>(i+1)+'. '+x.name).join('\n'));const i=Number(n)-1;if(l[i])deleteLicense(l[i].code);return;}
+ alert('Não há um registro selecionado para excluir nesta tela.');
+}
+function editClient(i){
+ const c=JSON.parse(localStorage.getItem('clientes_natura_avon')||'[]');const x=c[i];if(!x)return;
+ const name=prompt('Nome do cliente:',x.name);if(name===null)return;
+ const phone=prompt('Telefone do cliente (pode deixar vazio):',x.phone||'');if(phone===null)return;
+ if(!name.trim()){alert('Informe o nome do cliente.');return}
+ if(normalizePhone(phone).length>0&&normalizePhone(phone).length<10){alert('Confira o telefone do cliente.');return}
+ const oldIds=new Set((x.orders||[]).map(o=>o.id));
+ c[i].name=name.trim();c[i].phone=phone.trim();(c[i].orders||[]).forEach(o=>{o.client=c[i].name;o.phone=c[i].phone});localStorage.setItem('clientes_natura_avon',JSON.stringify(c));
+ const orders=JSON.parse(localStorage.getItem('pedidos_natura_avon')||'[]');orders.forEach(o=>{if(oldIds.has(o.id)){o.client=c[i].name;o.phone=c[i].phone}});localStorage.setItem('pedidos_natura_avon',JSON.stringify(orders));renderClients();alert('Cliente atualizado.');
+}
+/* ===== Nome do app (editável pelo desenvolvedor / vem no link da consultora) ===== */
+const DEFAULT_APP_NAME='Cosméticos App';
+function appName(){try{return localStorage.getItem('app_nome_exibicao')||DEFAULT_APP_NAME}catch(e){return DEFAULT_APP_NAME}}
+function setAppName(n){n=String(n||'').replace(/\s+/g,' ').trim().slice(0,30);if(!n)return;try{localStorage.setItem('app_nome_exibicao',n)}catch(e){}applyAppName()}
+function applyAppName(){const n=appName();document.querySelectorAll('.appNameText').forEach(e=>e.textContent=n);document.title=n;const t=document.getElementById('metaAppTitle');if(t)t.setAttribute('content',n);const a=document.getElementById('metaAppName');if(a)a.setAttribute('content',n);const inp=document.getElementById('appNameInput');if(inp&&document.activeElement!==inp)inp.value=n;updateDynamicManifest(n)}
+function updateDynamicManifest(n){try{let code='';try{code=localStorage.getItem('jeovania_code')||''}catch(e){}const base=location.origin+location.pathname;const start=base+(code?'?c='+encodeURIComponent(code)+'&n='+encodeURIComponent(n):'');const m={name:n,short_name:n,start_url:start,scope:new URL('./',location.href).href,display:'standalone',background_color:'#ffffff',theme_color:'#8b2f5e',icons:[{src:new URL('icon-192.png',location.href).href,sizes:'192x192',type:'image/png'},{src:new URL('icon-512.png',location.href).href,sizes:'512x512',type:'image/png'}]};const link=document.querySelector('link[rel="manifest"]');if(link&&location.protocol.startsWith('http'))link.href='data:application/manifest+json,'+encodeURIComponent(JSON.stringify(m))}catch(e){}}
+function editAppNameQuick(){let n=null;try{n=prompt('Digite o nome do seu app (até 30 letras):',appName())}catch(e){}if(n===null)return;n=n.trim();if(!n)return;setAppName(n)}
+function pickCover(inp){const f=inp.files&&inp.files[0];inp.value='';if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,900/im.width);const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);try{localStorage.setItem('app_capa',c.toDataURL('image/jpeg',.78));applyCover()}catch(e){alert('Não foi possível salvar a foto. Tente uma foto menor.')}};im.onerror=()=>alert('Não foi possível abrir essa foto.');im.src=r.result};r.readAsDataURL(f)}
+function resetCover(){try{localStorage.removeItem('app_capa')}catch(e){}applyCover()}
+function applyCover(){let c='';try{c=localStorage.getItem('app_capa')||''}catch(e){}const i=document.querySelector('.app-cover'),cap=document.querySelector('.cover-caption'),rb=document.getElementById('coverReset');if(i){i.src=c||'capa-vita-home.jpg';i.classList.toggle('custom',!!c)}if(cap)cap.style.display=c?'none':'';if(rb)rb.style.display=c?'':'none'}
+function saveAppNameFromInput(){const v=(document.getElementById('appNameInput')?.value||'').trim();if(!v){alert('Digite o nome do app.');return}setAppName(v);alert('✅ Nome salvo: '+appName()+'\n\nPara mudar o nome embaixo do ícone, apague o ícone e adicione à tela de início de novo.')}
+function readNameFromLink(){try{const n=new URLSearchParams(location.search).get('n');if(n)setAppName(n)}catch(e){}}
+function slugCode(name){return String(name||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,20)}
+function newCode(name){return (slugCode(name)||'consultora')+'-'+Math.floor(1000+Math.random()*9000)}
+function licenseList(){let l=null;try{l=JSON.parse(localStorage.getItem('jeovania_licenses')||'null')}catch(e){}if(!Array.isArray(l)){l=[];try{const old=JSON.parse(localStorage.getItem('jeovania_license')||'null');if(old&&old.name){old.code=newCode(old.name);l.push(old);}}catch(e){}localStorage.setItem('jeovania_licenses',JSON.stringify(l));}return l}
+function saveLicenseList(l){localStorage.setItem('jeovania_licenses',JSON.stringify(l))}
+function licenseData(){const code=(document.getElementById('licenseCode')?.value||'').trim();return licenseList().find(x=>x.code===code)||null}
+function appBaseUrl(){return location.origin+location.pathname}
+function consultantLink(code){const x=licenseList().find(y=>y.code===code);return appBaseUrl()+'?c='+encodeURIComponent(code)+(x&&x.name?'&n='+encodeURIComponent(x.name):'')}
+function licenseExpired(x){return !!(x&&x.expiry&&Date.now()>new Date(x.expiry+'T23:59:59').getTime())}
+function accessJsonText(){const o={consultoras:{}};licenseList().forEach(x=>{o.consultoras[x.code]={nome:x.name,status:x.status,vence:x.expiry||''}});return JSON.stringify(o,null,2)}
+function fillLicenseForm(code){const x=licenseList().find(y=>y.code===code);if(!x)return;document.getElementById('licenseName').value=x.name||'';document.getElementById('licenseStatus').value=x.status||'trial';document.getElementById('licenseExpiry').value=x.expiry||'';document.getElementById('licenseDays').value='';document.getElementById('licenseCode').value=x.code;document.getElementById('licenseName').scrollIntoView({behavior:'smooth',block:'center'})}
+function renderLicense(){
+ const box=document.getElementById('licenseStatusBox');if(!box)return;const l=licenseList();
+ const js=document.getElementById('accessJson');if(js)js.value=accessJsonText();
+ if(!l.length){box.innerHTML='<strong>🔐 Nenhuma consultora cadastrada.</strong><div style="font-size:12px;margin-top:5px">Preencha o nome, escolha o período e toque em Salvar acesso. O link dela é criado na hora.</div>';return}
+ box.innerHTML='<strong>🔗 Links das consultoras</strong>'+l.map(x=>{const blocked=x.status==='blocked'||licenseExpired(x);const st=blocked?(x.status==='blocked'?'🔒 Bloqueada':'⏰ Vencida'):(x.status==='trial'?'🕐 Em teste':'✅ Ativa');return `<div class="licensecard"><strong>${x.name||'Consultora'}</strong><div>Status: <b>${st}</b> • ${x.expiry?'vence '+new Date(x.expiry+'T00:00:00').toLocaleDateString('pt-BR'):'sem vencimento'}</div><div class="lnk">${consultantLink(x.code)}</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><button onclick="copyLicenseLink('${x.code}')">📋 Copiar link</button><button onclick="sendLicenseWhatsApp('${x.code}')">💬 Enviar no WhatsApp</button><button onclick="fillLicenseForm('${x.code}')">✏️ Editar</button><button onclick="setLicenseStatus('${x.code}','active')">✅ Ativar</button><button onclick="setLicenseStatus('${x.code}','blocked')">🔒 Bloquear</button><button onclick="deleteLicense('${x.code}')">🗑️ Excluir</button></div></div>`}).join('');
+}
+function setLicensePreset(days){const d=document.getElementById('licenseDays');const e=document.getElementById('licenseExpiry');if(days===0){d.value='';e.value='';return}d.value=days;const dt=new Date();dt.setDate(dt.getDate()+days);e.value=dt.toISOString().slice(0,10)}
+function saveLicense(){
+ const name=(document.getElementById('licenseName')?.value||'').trim();const status=document.getElementById('licenseStatus')?.value||'trial';const expiry=document.getElementById('licenseExpiry')?.value||'';
+ if(!name){alert('Informe o nome da consultora.');return}
+ const typed=slugCode(document.getElementById('licenseCode')?.value||'');const l=licenseList();
+ const code=typed||newCode(name);const i=l.findIndex(x=>x.code===code);const item={name,status,expiry,code,savedAt:new Date().toISOString()};
+ if(i>=0)l[i]=item;else l.push(item);saveLicenseList(l);document.getElementById('licenseCode').value=code;renderLicense();
+ alert('Acesso salvo.\n\nLink dela:\n'+consultantLink(code)+'\n\nAgora toque em "Copiar texto do arquivo" e atualize o acessos.json no GitHub.');
+}
+function setLicenseStatus(code,status){const l=licenseList();const x=l.find(y=>y.code===code);if(!x)return;x.status=status;saveLicenseList(l);renderLicense();alert((status==='blocked'?'🔒 Marcada como bloqueada.':'✅ Marcada como ativa.')+'\n\nPara valer no celular dela, copie o texto do arquivo e atualize o acessos.json no GitHub.')}
+function deleteLicense(code){const l=licenseList();const x=l.find(y=>y.code===code);if(!x)return;if(!confirm('Excluir o acesso de '+x.name+'? O link dela deixa de funcionar depois que você atualizar o acessos.json.'))return;saveLicenseList(l.filter(y=>y.code!==code));if(document.getElementById('licenseCode').value===code)document.getElementById('licenseCode').value='';renderLicense()}
+function copyText(t,msg){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>alert(msg)).catch(()=>prompt('Copie o texto abaixo:',t))}else prompt('Copie o texto abaixo:',t)}
+function copyLicenseLink(code){copyText(consultantLink(code),'🔗 Link copiado!')}
+function sendLicenseWhatsApp(code){const x=licenseList().find(y=>y.code===code);if(!x)return;const msg='Olá, '+x.name+'! 🌸 Este é o seu link do aplicativo '+(x.name||'')+':\n'+consultantLink(code)+'\n\nAbra sempre por este link. Se quiser, adicione à tela inicial a partir dele.';window.location.href='https://wa.me/?text='+encodeURIComponent(msg)}
+function copyAccessJson(){copyText(accessJsonText(),'📄 Texto copiado! Cole no arquivo acessos.json do GitHub.')}
+
+/* ===== Verificação do link da consultora (acessos.json no GitHub) ===== */
+const ACCESS_SOURCE='acessos.json';
+const DEV_WHATSAPP='5515997450254';
+function renewLink(){let c='';try{c=localStorage.getItem('jeovania_code')||''}catch(e){}return 'https://wa.me/'+DEV_WHATSAPP+'?text='+encodeURIComponent('Olá! Sou '+appName()+' e quero renovar meu acesso ao app'+(c?' (código: '+c+')':'')+'.')}
+function showAccessBar(x){document.getElementById('accessBar')?.remove();if(!x||!x.vence)return;const d0=new Date();d0.setHours(0,0,0,0);const d1=new Date(x.vence+'T00:00:00');const n=Math.round((d1-d0)/86400000);if(n<0)return;const lbl=x.status==='trial'?'Período de teste':'Acesso';const t=n===0?'termina hoje':n===1?'resta 1 dia':'restam '+n+' dias';const bar=document.createElement('div');bar.id='accessBar';bar.className='accessbar'+(n<=7?' low':'');bar.innerHTML='<span>🕒 <b>'+lbl+':</b> '+t+' (até '+d1.toLocaleDateString('pt-BR')+')</span><a href="'+renewLink()+'" target="_blank" rel="noopener">Renovar</a>';const app=document.querySelector('.app');if(app)app.insertBefore(bar,app.firstChild)}
+function consultantCode(){try{const p=new URLSearchParams(location.search);if(p.has('dev')){localStorage.removeItem('jeovania_code');localStorage.removeItem('jeovania_access_cache');return ''}const c=slugCode(p.get('c')||'');if(c)localStorage.setItem('jeovania_code',c);return localStorage.getItem('jeovania_code')||''}catch(e){return ''}}
+function showBlockScreen(msg){let el=document.getElementById('blockScreen');if(!el){el=document.createElement('div');el.id='blockScreen';el.className='blockscreen';document.body.appendChild(el)}el.innerHTML=`<div class="blockcard"><div style="font-size:46px">🔒</div><h2>Acesso bloqueado</h2><p>${msg}</p><p style="font-size:12px;color:#777">Para liberar, fale com o desenvolvedor:</p><a class="renewbtn" href="${renewLink()}" target="_blank" rel="noopener">💬 Renovar pelo WhatsApp</a><br><button onclick="location.reload()">↻ Tentar de novo</button></div>`}
+function hideBlockScreen(){document.getElementById('blockScreen')?.remove()}
+function accessProblem(x){if(!x)return 'Este link não está liberado.';if(x.status==='blocked')return 'O acesso deste link foi bloqueado.';if(x.vence&&Date.now()>new Date(x.vence+'T23:59:59').getTime())return 'O período de acesso terminou em '+new Date(x.vence+'T00:00:00').toLocaleDateString('pt-BR')+'.';return ''}
+async function checkAccess(){
+ const code=consultantCode();if(!code)return;
+ const dev=document.querySelector('[aria-label="Área do desenvolvedor"]');if(dev)dev.style.display='none';document.querySelectorAll('[onclick="shareApp()"]').forEach(e=>e.style.display='none');
+ let entry=null,known=false;
+ try{const r=await fetch(ACCESS_SOURCE+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('sem arquivo');const d=await r.json();entry=(d.consultoras||{})[code]||null;known=true;localStorage.setItem('jeovania_access_cache',JSON.stringify({entry}))}
+ catch(e){try{const c=JSON.parse(localStorage.getItem('jeovania_access_cache')||'null');if(c){entry=c.entry;known=true}}catch(_){}}
+ if(!known)return;
+ if(entry&&entry.nome)setAppName(entry.nome);
+ const msg=accessProblem(entry);if(msg)showBlockScreen(msg);else hideBlockScreen();showAccessBar(msg?null:entry);
+}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')checkAccess()});
+let navStack=[],currentPanel='home',navPushOk=false;
+function show(id,btn,isBack){
+ if(id==='admin'&&consultantCode()){alert('🔒 A área do desenvolvedor não está disponível neste link.');return}
+ if(!isBack&&id!==currentPanel){navStack.push({id:currentPanel,y:window.scrollY});try{history.pushState({p:id},'');navPushOk=true}catch(e){navPushOk=false}}
+ currentPanel=id;
+ document.querySelectorAll('.panel').forEach(x=>x.classList.remove('show'));document.getElementById(id).classList.add('show');
+ if(btn){document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
+ if(!isBack)window.scrollTo({top:0,behavior:'smooth'});
+ if(id==='catalog')renderProducts();
+ if(id==='magazines'){loadOnlineMagazines();}
+ if(id==='cart')updateCart();
+ if(id==='consultant'){renderManageProducts();renderSuppliers();populateSupplierSelect(document.getElementById('productSupplier')?.value||'');renderReorderList();}
+ if(id==='admin'){renderLicense();}
+ if(id==='clients'){populateNewProductSelect();renderClients();} if(id==='orders')renderOrders(); if(id==='finance')renderFinance(); if(id==='ratings'){renderRatingProducts();renderRatings();}
+}
+function navBackStep(){const prev=navStack.pop();if(!prev){show('home',null,true);window.scrollTo({top:0});return}show(prev.id,null,true);setTimeout(()=>window.scrollTo({top:prev.y||0}),40)}
+function goBack(){if(!navStack.length){show('home',null,true);window.scrollTo({top:0,behavior:'smooth'});return}if(navPushOk)history.back();else navBackStep()}
+window.addEventListener('popstate',()=>{if(navStack.length)navBackStep()});
+function toggleAddress(){const f=document.getElementById('addrFields'),a=document.getElementById('addrArrow');if(!f)return;const open=f.style.display==='none';f.style.display=open?'block':'none';if(a)a.textContent=open?'▴ fechar':'▾ abrir';if(open)setTimeout(()=>document.getElementById('clientCep')?.focus(),50)}
+function homeShortcut(target){
+ if(target==='Pedidos'){show('orders');return}
+ if(target==='Clientes'){show('clients');return}
+ if(target==='Financeiro'){show('finance');return}
+ currentFilter=target;
+ show('catalog');
+}
+function filterBrand(b){currentFilter=b;show('catalog')}
+function previewProductPhoto(ev){
+ const f=ev.target.files[0],img=document.getElementById('productPreview'),lab=document.getElementById('photoLabel');
+ if(!f)return;lab.textContent=f.name;
+ const r=new FileReader();
+ r.onload=()=>{const im=new Image();im.onload=()=>{const max=900,s=Math.min(1,max/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);img.src=c.toDataURL('image/jpeg',.82);img.style.display='block';};im.onerror=()=>{img.src=r.result;img.style.display='block';};im.src=r.result;};
+ r.readAsDataURL(f);
+}
+function populateSupplierSelect(selected){
+ const el=document.getElementById('productSupplier');if(!el)return;
+ const list=suppliers();el.innerHTML='<option value="">Sem fornecedor definido</option>'+list.map(x=>`<option value="${x.id}">${x.name}</option>`).join('');
+ if(selected!=null)el.value=String(selected);
+}
+function saveProduct(){
+ const name=document.getElementById('productName').value.trim(),brand=document.getElementById('productBrand').value,cat=document.getElementById('productCategory').value.trim()||'Outros',price=parseMoneyInput(document.getElementById('productPrice').value),cost=parseMoneyInput(document.getElementById('productCost')?.value||0),stock=Math.max(0,Number(document.getElementById('productStock').value||0)),minStock=Math.max(0,Number(document.getElementById('productMinStock').value||1)),targetStock=Math.max(0,Number(document.getElementById('productTargetStock').value||0)),supplierId=document.getElementById('productSupplier').value||'',id=document.getElementById('editProductId').value;
+ if(!name||isNaN(price)||price<=0){alert('Informe o nome e o preço do produto.');return}
+ const img=document.getElementById('productPreview');const photo=img.style.display==='block'?img.src:'';
+ if(id){const i=products.findIndex(x=>String(x.id)===String(id));if(i>=0){products[i]={...products[i],n:name,b:brand,c:cat,p:price,cost,stock,minStock,targetStock,supplierId,photo:photo||products[i].photo||''};}}
+ else {products.push({id:Date.now(),b:brand,c:cat,n:name,p:price,cost,e:'🛍️',photo,stock,minStock,targetStock,supplierId});}
+ try{localStorage.setItem('catalogo_natura_avon',JSON.stringify(products));}catch(e){alert('⚠️ O armazenamento do aparelho está cheio. Tente usar fotos menores ou excluir produtos antigos.');return}
+ clearProductForm();renderProducts();renderManageProducts();renderReorderList();populateNewProductSelect();renderRatingProducts();alert('Produto salvo no catálogo!');
+}
+function editProduct(id){const x=products.find(p=>p.id===id);if(!x)return;show('consultant');document.getElementById('editProductId').value=x.id;document.getElementById('productName').value=x.n;document.getElementById('productBrand').value=x.b;document.getElementById('productCategory').value=x.c;document.getElementById('productPrice').value=Number(x.p).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});document.getElementById('productCost').value=x.cost?Number(x.cost).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):'';updateProductMargin();document.getElementById('productStock').value=stockTracked(x)?stockNumber(x):'';document.getElementById('productMinStock').value=minStockNumber(x);document.getElementById('productTargetStock').value=Number(x.targetStock||0)||'';populateSupplierSelect(x.supplierId||'');const img=document.getElementById('productPreview');if(x.photo){img.src=x.photo;img.style.display='block';document.getElementById('photoLabel').textContent='Trocar foto';}else{img.style.display='none';document.getElementById('photoLabel').textContent='Escolher foto do produto';}setTimeout(()=>document.getElementById('productName')?.scrollIntoView({behavior:'smooth',block:'center'}),300);}
+function deleteProduct(id){if(!confirm('Excluir este produto do catálogo?'))return;products=products.filter(x=>x.id!==id);localStorage.setItem('catalogo_natura_avon',JSON.stringify(products));renderProducts();renderManageProducts();renderReorderList();populateNewProductSelect();renderRatingProducts();}
+function clearProductForm(){document.getElementById('editProductId').value='';document.getElementById('productName').value='';document.getElementById('productCategory').value='';document.getElementById('productPrice').value='';document.getElementById('productCost').value='';document.getElementById('productMargin').textContent='';document.getElementById('productStock').value='';document.getElementById('productMinStock').value='';document.getElementById('productTargetStock').value='';populateSupplierSelect('');document.getElementById('productPhoto').value='';document.getElementById('productPreview').style.display='none';document.getElementById('photoLabel').textContent='Escolher foto do produto';}
+function restockProduct(id){const x=products.find(p=>p.id===id);if(!x)return;const q=prompt('Quantas unidades deseja adicionar ao estoque de '+x.n+'?','1');if(q===null)return;const n=Math.floor(Number(q));if(!Number.isFinite(n)||n<1){alert('Informe uma quantidade válida.');return}x.stock=(stockTracked(x)?stockNumber(x):0)+n;localStorage.setItem('catalogo_natura_avon',JSON.stringify(products));renderProducts();renderManageProducts();renderReorderList();renderStockAlerts();alert('Estoque atualizado: '+x.stock+' unidade(s).');}
+function renderManageProducts(){const el=document.getElementById('manageProducts');if(!el)return;el.innerHTML=products.length?products.map(x=>{const v=x.photo?`<img src="${x.photo}">`:x.e;return `<div class="managecard"><div class="managepic">${v}</div><div class="manageinfo"><strong>${x.n}</strong><small>${x.b} • ${x.c}</small><div class="manageprice">${money(Number(x.p))}</div>${stockLabel(x)}<div class="manageactions"><button class="miniBtn" onclick="editProduct(${x.id})">✏️ Editar</button><button class="miniBtn" onclick="restockProduct(${x.id})">➕ Repor</button><button class="miniBtn" onclick="showRatingFor(${x.id})">⭐ Avaliar</button><button class="miniBtn del" onclick="deleteProduct(${x.id})">🗑️ Excluir</button></div></div></div>`}).join(''):'<div class="empty">Nenhum produto cadastrado ainda.</div>';}
+function renderFeatured(){ /* catálogo inicial removido: cada vendedor cadastra os próprios produtos */ }
+function startClientOrder(i){
+ const c=JSON.parse(localStorage.getItem('clientes_natura_avon')||'[]');
+ if(!c[i])return;
+ pendingClientIndex=i;
+ cart=[];
+ show('catalog');
+ alert('Cliente selecionado: '+c[i].name+'\nAgora escolha os produtos para lançar a compra.');
+}
+function registerPayment(ci,oid){
+ const c=JSON.parse(localStorage.getItem('clientes_natura_avon')||'[]');
+ const client=c[ci];if(!client)return;
+ const o=(client.orders||[]).find(x=>x.id===oid);if(!o)return;
+ applyPaymentState(o);
+ const remaining=o.balance;
+ if(remaining<=0){localStorage.setItem('clientes_natura_avon',JSON.stringify(c));renderClients();alert('Este pedido já está totalmente pago.');return}
+ const typed=prompt('Quanto o cliente pagou agora?\nFalta atualmente: '+money(remaining)+'\n\nExemplo: 25,90',remaining.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}));
+ if(typed===null)return;
+ const v=parseMoneyInput(typed);
+ if(v<=0){alert('Informe um valor maior que zero.');return}
+ if(v>remaining+0.001){alert('O valor informado ('+money(v)+') é maior que o valor que falta cobrar ('+money(remaining)+').');return}
+ o.paid=round2(Number(o.paid||0)+v);
+ o.payments=o.payments||[];o.payments.push({value:v,date:new Date().toLocaleDateString('pt-BR')});
+ applyPaymentState(o);
+ localStorage.setItem('clientes_natura_avon',JSON.stringify(c));
+ const all=JSON.parse(localStorage.getItem('pedidos_natura_avon')||'[]');const ao=all.find(x=>x.id===oid);
+ if(ao){ao.paid=o.paid;ao.balance=o.balance;ao.payment=o.payment;ao.status=o.status;ao.payments=o.payments;}
+ else{all.push(JSON.parse(JSON.stringify(o)));}
+ localStorage.setItem('pedidos_natura_avon',JSON.stringify(all));
+ renderClients();renderOrders();renderFinance();
+ alert(o.balance===0?'✅ Pagamento registrado. Pedido quitado!':'💵 Pagamento registrado. Ainda falta '+money(o.balance)+'.');
+}
+function populateNewProductSelect(){
+ const el=document.getElementById('newPurchaseProduct');if(!el)return;
+ el.innerHTML='<option value="">Selecionar produto do catálogo</option>'+products.map((p,i)=>`<option value="${i}">${p.n} — ${money(Number(p.p))}</option>`).join('');
+}
+function fillNewProductPrice(){const i=document.getElementById('newPurchaseProduct').value;if(i==='')return;const p=products[Number(i)];if(!p)return;document.getElementById('newPurchaseName').value=p.n;document.getElementById('newPurchasePrice').value=Number(p.p).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});const d=document.getElementById('newPurchaseDiscount');if(d)d.value='';updateNewPurchaseTotal();}
+function currentNewItemValues(){const listPrice=moneyValue('newPurchasePrice'),discount=Math.max(0,moneyValue('newPurchaseDiscount')),finalPrice=round2(Math.max(0,listPrice-discount));return {listPrice,discount,finalPrice};}
+function updateNewPurchaseTotal(){const q=Math.max(0,Number(document.getElementById('newPurchaseQty')?.value||0)),v=currentNewItemValues(),total=round2(q*v.finalPrice),e=document.getElementById('newPurchaseTotal');if(e)e.textContent='Total do item: '+money(total);const fu=document.getElementById('newPurchaseFinalUnit');if(fu)fu.textContent='Valor final por unidade: '+money(v.finalPrice)+(v.discount>0?' (desconto de '+money(v.discount)+')':'');const calc=document.getElementById('newPurchaseCalc');if(calc)calc.textContent=(q||0)+' '+((q||0)===1?'unidade':'unidades')+' × '+money(v.finalPrice)+' = '+money(total);const g=document.getElementById('newPurchaseGrandTotal');if(g)g.textContent='Total da compra: '+money(newPurchaseTotal());updateNewBalance();}
+function addNewPurchaseItem(){
+ const name=document.getElementById('newPurchaseName').value.trim(),q=Math.max(1,Number(document.getElementById('newPurchaseQty').value||0)),v=currentNewItemValues();
+ if(!name||v.listPrice<=0){alert('Informe o produto e o valor.');return}
+ if(v.discount>v.listPrice){alert('O desconto não pode ser maior que o valor unitário.');return}
+ const selectedId=document.getElementById('newPurchaseProduct').value;const productId=selectedId!==''?products[Number(selectedId)]?.id:null;const item={name,qty:q,price:v.finalPrice,listPrice:v.listPrice,discount:v.discount,total:round2(q*v.finalPrice),productId};const stockError=validateStock(newPurchaseItems.concat(item));if(stockError){alert('⚠️ '+stockError);return}newPurchaseItems.push(item);
+ document.getElementById('newPurchaseName').value='';document.getElementById('newPurchaseQty').value='1';document.getElementById('newPurchasePrice').value='';document.getElementById('newPurchaseDiscount').value='';document.getElementById('newPurchaseProduct').value='';renderNewPurchaseItems();updateNewPurchaseTotal();
+}
+function renderNewPurchaseItems(){const el=document.getElementById('newPurchaseItems');if(!el)return;el.innerHTML=newPurchaseItems.map((x,i)=>`<div class="newitem"><button class="removeitem" onclick="newPurchaseItems.splice(${i},1);renderNewPurchaseItems();updateNewPurchaseTotal();">✕</button><strong>${x.name}</strong><br>Quantidade: ${x.qty} • ${money(x.price)} cada${Number(x.discount||0)>0?`<br>Preço de tabela: ${money(x.listPrice||x.price)} • Desconto: ${money(x.discount)}`:''}<br>Total: <strong>${money(x.total)}</strong></div>`).join('');document.getElementById('newPurchaseGrandTotal').textContent='Total da compra: '+money(newPurchaseTotal());updateNewBalance();}
+function newPurchaseTotal(){const saved=newPurchaseItems.reduce((a,x)=>a+Number(x.total),0);const q=Math.max(0,Number(document.getElementById('newPurchaseQty')?.value||0));const v=currentNewItemValues();const current=(q>0&&v.finalPrice>0)?q*v.finalPrice:0;return round2(saved+current)}
+function setNewPayment(type){newPaymentTouched=true;const a=document.getElementById('newPayTotal'),b=document.getElementById('newPayPartial'),f=document.getElementById('newPartialField'),input=document.getElementById('newPaidAmount'),d=document.getElementById('newDueDateBox');a.classList.toggle('active',type==='total');b.classList.toggle('active',type==='partial');f.classList.toggle('show',type==='partial');if(d)d.classList.toggle('show',type==='partial');if(type==='total'){if(input)input.value='';if(document.getElementById('newDueDate'))document.getElementById('newDueDate').value='';setNewPaymentStatus();}else updateNewBalance();}
+function updateNewBalance(){const t=newPurchaseTotal(),paid=moneyValue('newPaidAmount'),e=document.getElementById('newRemaining');if(e)e.innerHTML='<div>Total da compra: <strong>'+money(t)+'</strong></div><div>Pago: <strong>'+money(paid)+'</strong></div><div style="margin-top:3px">Falta: <strong>'+money(balanceOf(t,paid))+'</strong></div>';setNewPaymentStatus();}
+function setNewPaymentStatus(){
+ const total=newPurchaseTotal();
+ const partial=document.getElementById('newPartialField')?.classList.contains('show');
+ const paid=partial?parseMoneyInput(document.getElementById('newPaidAmount')?.value||'0'):total;
+ const el=document.getElementById('newPaymentStatus');if(!el)return;
+ const status=(!newPaymentTouched||total<=0)?'Selecione o pagamento':(balanceOf(total,paid)===0?'Pago':(paid>0?'Parcial':'Pendente'));
+ el.textContent=status;
+ el.className='payment-status-badge '+(status==='Pago'?'pay-pago':status==='Parcial'?'pay-parcial':status==='Pendente'?'pay-pendente':'pay-neutro');
+}
+
+function resetNewPurchaseForm(){newPurchaseItems=[];['clientName','clientPhone','clientCep','clientNumber','clientAddress','clientComplement','clientNeighborhood','clientCityUf','clientNotes','newPurchaseName','newPurchasePrice','newPurchaseDiscount','newPaidAmount','newDueDate'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});document.getElementById('newPurchaseQty').value='1';document.getElementById('newPurchaseProduct').value='';newPaymentTouched=true;document.getElementById('newDeliveryStatus').value='Não entregue';const a=document.getElementById('newPayTotal'),b=document.getElementById('newPayPartial'),f=document.getElementById('newPartialField'),d=document.getElementById('newDueDateBox');a?.classList.add('active');b?.classList.remove('active');f?.classList.remove('show');d?.classList.remove('show');renderNewPurchaseItems();updateNewPurchaseTotal();updateClientPhoneHint();}
+function saveClientAndPurchase(){
+ const n=document.getElementById('clientName').value.trim(),p=document.getElementById('clientPhone').value.trim();
+ const partial=document.getElementById('newPartialField').classList.contains('show');
+ if(partial && (!n||normalizePhone(p).length<10)){alert('Para venda a prazo, informe o nome e um telefone válido do cliente.');return}
+ if(normalizePhone(p).length>0 && normalizePhone(p).length<10){alert('Confira o telefone do cliente.');return}
+ const currentName=document.getElementById('newPurchaseName').value.trim() || (document.getElementById('newPurchaseProduct').value!=='' ? products[Number(document.getElementById('newPurchaseProduct').value)]?.n : 'Produto');
+ const currentQty=Math.max(0,Number(document.getElementById('newPurchaseQty').value||0)),currentValues=currentNewItemValues();
+ let itemsToSave=newPurchaseItems.slice();
+ if(currentQty>0&&currentValues.finalPrice>0){if(currentValues.discount>currentValues.listPrice){alert('O desconto não pode ser maior que o valor unitário.');return}const selectedId=document.getElementById('newPurchaseProduct').value;const productId=selectedId!==''?products[Number(selectedId)]?.id:null;itemsToSave.push({name:currentName,qty:currentQty,price:currentValues.finalPrice,listPrice:currentValues.listPrice,discount:currentValues.discount,total:round2(currentQty*currentValues.finalPrice),productId});}
+ if(!itemsToSave.length){alert('Agora lance pelo menos um produto, com quantidade e valor.');return}
+ const stockError=validateStock(itemsToSave);if(stockError){alert('⚠️ '+stockError);return}
+ const total=round2(itemsToSave.reduce((a,x)=>a+Number(x.total),0));
+ const paid=partial?moneyValue('newPaidAmount'):total;
+ if(partial&&(paid<=0||paid>total)){alert('No pagamento parcial, informe um valor pago maior que zero e menor ou igual ao total.');return}
+ const dueDate=partial?(document.getElementById('newDueDate')?.value||''):'';
+ if(partial&&balanceOf(total,paid)>0&&!dueDate){alert('No pagamento parcial, informe a data para pagar o restante.');return}
+ newPurchaseItems=itemsToSave;
+ const date=new Date().toLocaleDateString('pt-BR'),id=Date.now();
+ const address={cep:(document.getElementById('clientCep')?.value||'').trim(),number:(document.getElementById('clientNumber')?.value||'').trim(),address:(document.getElementById('clientAddress')?.value||'').trim(),complement:(document.getElementById('clientComplement')?.value||'').trim(),neighborhood:(document.getElementById('clientNeighborhood')?.value||'').trim(),cityUf:(document.getElementById('clientCityUf')?.value||'').trim(),notes:(document.getElementById('clientNotes')?.value||'').trim()};
+ const order=applyPaymentState({id,date,isoDate:new Date().toISOString(),client:n||'Venda à vista',phone:p,products:newPurchaseItems.map(x=>({name:x.name,qty:x.qty,price:x.price,listPrice:x.listPrice||x.price,discount:x.discount||0,total:x.total,productId:x.productId,cost:costOf(x.productId)})),total,paid,deliveryStatus:document.getElementById('newDeliveryStatus').value,dueDate,address});
+ const clients=JSON.parse(localStorage.getItem('clientes_natura_avon')||'[]');
+ if(n || normalizePhone(p).length){
+   let existing=normalizePhone(p).length?clients.findIndex(x=>normalizePhone(x.phone)===normalizePhone(p)):-1;
+   if(existing<0&&!normalizePhone(p).length&&n)existing=clients.findIndex(x=>!normalizePhone(x.phone)&&String(x.name).trim().toLowerCase()===n.toLowerCase());
+   if(existing>=0){clients[existing].name=n||clients[existing].name;clients[existing].phone=p||clients[existing].phone;clients[existing].address=address;clients[existing].orders=clients[existing].orders||[];clients[existing].orders.push(order);}
+   else{clients.push({name:n||'Cliente à vista',phone:p,address,orders:[order]});}
+   localStorage.setItem('clientes_natura_avon',JSON.stringify(clients));
+ }
+ const orders=JSON.parse(localStorage.getItem('pedidos_natura_avon')||'[]');orders.push(JSON.parse(JSON.stringify(order)));localStorage.setItem('pedidos_natura_avon',JSON.stringify(orders));decrementStock(newPurchaseItems);renderProducts();renderManageProducts();renderReorderList();
+ renderClients();renderOrders();renderFinance();alert('Cliente e compra salvos juntos na ficha completa.');resetNewPurchaseForm();
+}
+function formatDateBR(v){if(!v)return '';const [y,m,d]=v.split('-');return d+'/'+m+'/'+y;}
+function dueState(v){if(!v)return '';const today=new Date();today.setHours(0,0,0,0);const d=new Date(v+'T00:00:00');if(d<today)return '<span class="overdue">• VENCIDO</span>';if(d.getTime()===today.getTime())return '<span class="duewarning">• VENCE HOJE</span>';return '';}
+function checkDueReminders(){const c=JSON.parse(localStorage.getItem('clientes_natura_avon')||'[]');const today=new Date();today.setHours(0,0,0,0);const due=[];c.forEach(x=>(x.orders||[]).forEach(o=>{if(Number(o.balance)>0&&o.dueDate){const d=new Date(o.dueDate+'T00:00:00');if(d<=today)due.push(x.name+' — '+money(o.balance)+' a cobrar');}}));if(due.length&&document.visibilityState==='visible'){setTimeout(()=>alert('🔔 Cobranças para verificar\n\n'+due.join('\n')),500);}}
+function renderClients(){
+ const e=document.getElementById('clientsList');if(!e)return;
+ const c=JSON.parse(localStorage.getItem('clientes_natura_avon')||'[]');
+ e.innerHTML=c.length?c.map((x,i)=>{
+   const orders=x.orders||[],total=round2(orders.reduce((s,o)=>s+Number(o.total||0),0)),paid=round2(orders.reduce((s,o)=>s+Number(o.paid||0),0)),balance=round2(orders.reduce((s,o)=>s+Number(o.balance||0),0));
+   const history=orders.length?orders.slice().reverse().map(o=>{const st=paymentStatus(o);return `<div class="historyitem"><div><strong>Pedido #${String(o.id).slice(-5)}</strong> • ${o.date}</div><div style="margin-top:5px"><strong>🛍️ Produtos:</strong> ${(o.products||[]).map(p=>p.name+((p.qty||1)>1?' × '+p.qty:'')+' ('+money(Number(p.price))+(Number(p.discount||0)>0?' • desc. '+money(Number(p.discount)):'')+')').join(', ')}</div><div style="margin-top:5px"><strong>💰 Total:</strong> ${money(o.total)} &nbsp; <strong>💵 Pago:</strong> ${money(o.paid)}</div><div style="margin-top:4px"><strong>💳 Pagamento:</strong> ${o.payment} &nbsp; <strong class="${Number(o.balance)>0?'debt':'paid'}">A cobrar: ${money(o.balance)}</strong></div><div style="margin-top:5px"><strong>📦 Entrega:</strong> <span class="deliverytag" style="background:${o.deliveryStatus==='Entregue'?'#e6f5e8':'#fff0d8'};color:${o.deliveryStatus==='Entregue'?'#26723a':'#8a5a00'}">${o.deliveryStatus||'Não informado'}</span></div>${Number(o.balance)>0&&o.dueDate?`<div style="margin-top:5px"><strong>📅 Vencimento:</strong> ${formatDateBR(o.dueDate)} ${dueState(o.dueDate)}</div>`:''}<div style="margin-top:8px"><strong>💳 Status do pagamento:</strong>
+<span class="payment-status-badge ${st==='Pago'?'pay-pago':st==='Parcial'?'pay-parcial':'pay-pendente'}">${st}</span></div>${Number(o.balance)>0?`<br><button class="payhistorybtn" onclick="registerPayment(${i},${o.id})">💵 Registrar pagamento</button>`:''}</div>`}).join(''):'<div class="clientempty">Nenhuma compra lançada para este cliente ainda.</div>';
+   const finance=orders.length?`<div class="totalbox"><strong>📋 Ficha financeira</strong><br>Pedidos: ${orders.length} &nbsp; • &nbsp; Compras: ${money(total)}<br><span class="paid">💵 Já pago: ${money(paid)}</span><br><span class="debt">💰 Total a cobrar: ${money(balance)}</span></div>`:'';
+   return `<div class="clientcard"><div style="font-size:18px;font-weight:800">👤 ${x.name}</div><div style="font-size:14px;margin-top:6px">📱 ${x.phone||'Telefone não informado'}</div>${x.phone?`<a class="callbtn" href="tel:${normalizePhone(x.phone)}">📞 Ligar para o cliente</a> <button class="callbtn" onclick="openClientWhatsAppByPhone('${normalizePhone(x.phone)}')">💬 WhatsApp</button>`:''}${x.address&&(x.address.cep||x.address.address||x.address.number||x.address.neighborhood||x.address.cityUf)?`<div style="font-size:12px;color:#777;margin-top:7px">📍 ${[x.address.address,x.address.number,x.address.complement,x.address.neighborhood,x.address.cityUf].filter(Boolean).join(', ')}</div>`:''} <button class="callbtn" onclick="editClient(${i})">✏️ Editar</button> <button class="callbtn" onclick="deleteClient(${i})">🗑️ Excluir</button><br><button class="clientmainbtn" onclick="startClientOrder(${i})">＋ Lançar compra para este cliente</button>${finance}<div style="margin-top:12px"><strong>🧾 Histórico de compras</strong>${history}</div></div>`;
+ }).join(''):'<div class="empty">Nenhum cliente cadastrado.</div>';
+}
+
+function updateOrderStatus(ci,oid,status){const c=JSON.parse(localStorage.getItem('clientes_natura_avon')||'[]');if(c[ci]?.orders){const o=c[ci].orders.find(x=>x.id===oid);if(o)o.status=status;localStorage.setItem('clientes_natura_avon',JSON.stringify(c));}const all=JSON.parse(localStorage.getItem('pedidos_natura_avon')||'[]');const o=all.find(x=>x.id===oid);if(o)o.status=status;localStorage.setItem('pedidos_natura_avon',JSON.stringify(all));}
+
+/* Corrige automaticamente pedidos antigos: arredonda centavos, quita saldos "fantasmas" e
+   deixa a ficha do cliente e a lista de pedidos com os mesmos valores. */
+function fixSavedPayments(){
+ try{
+  const clients=JSON.parse(localStorage.getItem('clientes_natura_avon')||'[]');
+  const all=JSON.parse(localStorage.getItem('pedidos_natura_avon')||'[]');
+  const byId={};
+  clients.forEach(c=>(c.orders||[]).forEach(o=>{applyPaymentState(o);byId[o.id]=o;}));
+  all.forEach(o=>{const fromClient=byId[o.id];if(fromClient&&Number(fromClient.paid)>Number(o.paid||0)){o.paid=fromClient.paid;o.payments=fromClient.payments;}applyPaymentState(o);});
+  clients.forEach(c=>(c.orders||[]).forEach(o=>{const a=all.find(x=>x.id===o.id);if(a&&Number(a.paid)>Number(o.paid||0)){o.paid=a.paid;applyPaymentState(o);}}));
+  localStorage.setItem('clientes_natura_avon',JSON.stringify(clients));
+  localStorage.setItem('pedidos_natura_avon',JSON.stringify(all));
+ }catch(e){}
+}
+
+const MAGAZINE_SOURCE='revistas.json';
+let onlineMagazines=[];
+let newPaymentTouched=true;
+function magazineFallback(){return [{id:15,month:'Novembro/2026',active:true,brands:['Natura','Avon','Avon Casa','Jequiti'],launches:[],categories:['Perfumes','Géis e cuidados','Maquiagem','Kits','Promoções']}];}
+const MAG_BRANDS=['Natura','Avon','Avon Casa','Jequiti'];
+const MAG_ICONS={'Natura':'🌿','Avon':'💄','Avon Casa':'🏠','Jequiti':'🌸'};
+const MAG_DEFAULT_LINKS={'Natura':'https://www.natura.com.br/consultoria/naturawebdigital','Avon':'https://www.avon.com.br/c/colecao-digital','Avon Casa':'https://www.avon.com.br/c/casa-estilo','Jequiti':''};
+function customMagLinks(){try{return JSON.parse(localStorage.getItem('jeovania_mag_links')||'{}')||{}}catch(e){return {}}}
+function currentMagazine(){const m=onlineMagazines||[];return m.find(x=>x.active)||m[0]}
+function magLink(brand,mag){const c=customMagLinks();if(c[brand])return c[brand];const l=(mag&&mag.links)||{};if(l[brand])return l[brand];return MAG_DEFAULT_LINKS[brand]||''}
+function escAttr(v){return String(v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}
+function editMagLink(brand){const atual=magLink(brand,currentMagazine());const v=prompt('Cole o link da revista '+brand+':\n(deixe vazio para voltar ao link padrão)',atual);if(v===null)return;const c=customMagLinks();const t=v.trim();if(!t){delete c[brand]}else{if(!/^https?:\/\//i.test(t)){alert('O link precisa começar com https://');return}c[brand]=t}localStorage.setItem('jeovania_mag_links',JSON.stringify(c));renderMagazines()}
+function openMagazineLinks(){document.getElementById('magBrands')?.scrollIntoView({behavior:'smooth',block:'start'})}
+function renderMagazines(){
+ const cur=document.getElementById('magazineCurrent'), list=document.getElementById('magazineList'); if(!cur||!list)return;
+ const mags=onlineMagazines||[]; const active=currentMagazine();
+ if(!active){cur.innerHTML='<div class="empty">Nenhuma revista cadastrada.</div>';list.innerHTML='';return;}
+ const brands=(active.brands&&active.brands.length)?active.brands:MAG_BRANDS;
+ const brandsHtml=brands.map(b=>{const url=magLink(b,active);return `<div class="magbrand"><div class="magbrand-head"><strong>${MAG_ICONS[b]||'📖'} ${b}</strong><button type="button" class="maglinkbtn" onclick="editMagLink('${b}')">${url?'✏️ Trocar link':'＋ Adicionar link'}</button></div>${url?`<a class="magazine-open" href="${escAttr(url)}" target="_blank" rel="noopener noreferrer">🌐 Abrir revista ${b}</a>`:'<div class="magnolink">Link da revista ainda não cadastrado.</div>'}</div>`}).join('');
+ cur.innerHTML=`<div class="magazinecard"><h3>📖 Revista ${active.id} — ${active.month}</h3><div style="font-size:13px;color:#666">Cada marca tem a sua revista. Toque no botão da marca para abrir.</div><div id="magBrands">${brandsHtml}</div><div class="launchbox"><strong>🆕 Lançamentos do mês</strong><div style="font-size:12px;color:#777;margin-top:4px">Produtos marcados como lançamento aparecem aqui em destaque.</div>${(active.launches||[]).map(x=>`<div class="launchitem"><strong>${x.name}</strong><span class="newtag">LANÇAMENTO</span><div style="font-size:12px;color:#777">${x.brand||''}${x.category?' • '+x.category:''}${x.price!=null?' • '+money(Number(x.price)):''}</div></div>`).join('')||'<div style="font-size:12px;color:#777;margin-top:8px">Nenhum lançamento cadastrado nesta edição ainda.</div>'}</div></div>`;
+ list.innerHTML='<div class="section-title"><h3 style="margin:0">📚 Histórico de revistas</h3></div>'+mags.slice().sort((a,b)=>Number(b.id)-Number(a.id)).map(m=>`<div class="magazinecard"><strong>Revista ${m.id} — ${m.month}</strong>${m.active?' <span class="newtag">ATUAL</span>':''}<div style="font-size:12px;color:#777;margin-top:4px">${(m.brands||[]).join(' • ')}</div></div>`).join('');
+}
+async function loadOnlineMagazines(){
+ const st=document.getElementById('magazineStatus'); if(st)st.textContent='Atualizando...';
+ try{const r=await fetch(MAGAZINE_SOURCE+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('fonte indisponível');const data=await r.json();onlineMagazines=Array.isArray(data)?data:(data.magazines||[]);if(!onlineMagazines.length)throw new Error('sem revistas');if(st)st.textContent='Online • atualizado';}
+ catch(e){onlineMagazines=magazineFallback();if(st)st.textContent='Modo local • fonte online não encontrada';}
+ renderMagazines();
+}
+function suppliers(){return JSON.parse(localStorage.getItem('fornecedores_minha_loja')||'[]')}
+function saveSupplier(){const name=(document.getElementById('supplierName')?.value||'').trim(),phone=normalizePhone(document.getElementById('supplierPhone')?.value||''),note=(document.getElementById('supplierNote')?.value||'').trim();if(!name){alert('Informe o nome do fornecedor.');return}if(phone.length<10){alert('Informe um número de WhatsApp válido.');return}const list=suppliers();list.push({id:Date.now(),name,phone,note});localStorage.setItem('fornecedores_minha_loja',JSON.stringify(list));document.getElementById('supplierName').value='';document.getElementById('supplierPhone').value='';document.getElementById('supplierNote').value='';renderSuppliers();populateSupplierSelect(document.getElementById('productSupplier')?.value||'');renderReorderList();alert('Fornecedor cadastrado.');}
+function renderSuppliers(){const el=document.getElementById('supplierList');if(!el)return;const list=suppliers();if(!list.length){el.innerHTML='<div class="supplierempty">Nenhum fornecedor cadastrado.</div>';return}el.innerHTML=list.map(x=>{const wa='55'+x.phone;const msg=encodeURIComponent('Olá, '+x.name+'! Gostaria de fazer um pedido.');return `<div class="suppliercard"><strong>📦 ${x.name}</strong><small>📱 ${formatPhoneText(x.phone)}${x.note?' • '+x.note:''}</small><div class="supplieractions"><button class="miniBtn whatsappbtn" onclick="openSupplierWhatsApp('${wa}','${msg}')">💬 Pedir pelo WhatsApp</button><button class="miniBtn" onclick="deleteSupplier(${x.id})">🗑️ Excluir</button></div></div>`}).join('')}
+function formatPhoneText(v){const d=normalizePhone(v);if(d.length===11)return '('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7);if(d.length===10)return '('+d.slice(0,2)+') '+d.slice(2,6)+'-'+d.slice(6);return d}
+function openSupplierWhatsApp(number,msg){window.location.href='https://wa.me/'+number+'?text='+msg}
+function deleteSupplier(id){if(!confirm('Excluir este fornecedor?'))return;const list=suppliers().filter(x=>x.id!==id);localStorage.setItem('fornecedores_minha_loja',JSON.stringify(list));renderSuppliers();populateSupplierSelect(document.getElementById('productSupplier')?.value||'');renderReorderList();}
+function deleteClient(i){const c=JSON.parse(localStorage.getItem('clientes_natura_avon')||'[]');if(!c[i])return;if(!confirm('Excluir o cliente '+c[i].name+'? As vendas continuam salvas em Pedidos.'))return;c.splice(i,1);localStorage.setItem('clientes_natura_avon',JSON.stringify(c));renderClients();}
+
+/* Service Worker embutido no index para manter este arquivo autocontido.
+   Observação: navegadores não permitem registrar um Service Worker diretamente
+   a partir de código inline/Blob; por isso o app não depende mais de sw.js para abrir.
+   O conteúdo original fica preservado abaixo para referência. */
+const EMBEDDED_SW_SOURCE = `const CACHE='jeovania-v2.9.4';
+const CORE=['./','./index.html','./manifest.json','./version.json','./revistas.json','./icon-192.png','./icon-512.png','./capa-vita-home.jpg','./wallpaper-jeovania.jpg'];
+self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
+self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
+self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(fetch(e.request).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match('./index.html'))));});
+`;
+window.addEventListener('load',()=>{
+  // O aplicativo funciona normalmente sem o arquivo sw.js.
+  // Isso evita erro quando o index.html é aberto sozinho ou sem o SW no servidor.
+});
+const APP_VERSION='2.9.4';
+function monthKeyFromOrder(o){if(!o)return ''; if(o.isoDate)return o.isoDate.slice(0,7); const parts=(o.date||'').split('/'); if(parts.length===3)return parts[2]+'-'+String(parts[1]).padStart(2,'0'); return '';}
+function currentMonth(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');}
+function monthLabelBR(key){const [y,m]=String(key||'').split('-');if(!y||!m)return key||'';return new Date(Number(y),Number(m)-1,1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'});}
+function setDefaultMonths(){['ordersMonth','financeMonth'].forEach(id=>{const e=document.getElementById(id);if(e&&!e.value)e.value=currentMonth();});}
+function renderOrders(){const e=document.getElementById('ordersList');if(!e)return; const month=document.getElementById('ordersMonth')?.value||currentMonth(); const all=JSON.parse(localStorage.getItem('pedidos_natura_avon')||'[]'); const list=all.filter(o=>monthKeyFromOrder(o)===month); const total=round2(list.reduce((s,o)=>s+Number(o.total||0),0)); const paid=round2(list.reduce((s,o)=>s+Number(o.paid||0),0)); const open=round2(list.reduce((s,o)=>s+Number(o.balance||0),0)); document.getElementById('ordersMonthLabel').textContent=monthLabelBR(month); document.getElementById('ordersSummary').innerHTML=`<strong>${list.length}</strong> pedidos • <strong>${money(total)}</strong> vendidos • <span class="paid">${money(paid)}</span> recebidos • <span class="debt">${money(open)}</span> a receber`; e.innerHTML=list.length?list.slice().reverse().map(o=>`<div class="order"><strong>Pedido #${String(o.id).slice(-5)}</strong><br>${o.client} • ${o.date}<br><span style="font-size:12px">${(o.products||[]).map(p=>`${p.name} × ${p.qty||1}`).join(', ')}</span><div style="margin-top:6px"><strong>${money(o.total)}</strong> • ${o.payment} • ${Number(o.balance)>0?'A receber '+money(o.balance):'Pago'}</div></div>`).join(''):'<div class="empty">Nenhum pedido salvo neste mês.</div>'; }
+function costOf(id){const x=products.find(p=>p.id===id);return x&&x.cost?Number(x.cost):0}
+function updateProductMargin(){const p=moneyValue('productPrice'),c=moneyValue('productCost'),el=document.getElementById('productMargin');if(!el)return;if(!c){el.textContent=p?'Informe o preço de compra para ver o seu lucro.':'';return}if(!p){el.textContent='';return}const l=round2(p-c),pc=Math.round(l/p*100);el.innerHTML=(l>=0?'💰 Lucro por unidade: <b>':'⚠️ Prejuízo por unidade: <b>')+money(Math.abs(l))+'</b> ('+pc+'% do preço de venda)'}
+function escH(t){return String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function localISO(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function expenses(){try{return JSON.parse(localStorage.getItem('gastos_natura_avon')||'[]')||[]}catch(e){return[]}}
+function addExpense(){const d=document.getElementById('expDesc').value.trim(),v=moneyValue('expValue');if(!d||!(v>0)){alert('Informe a descrição e o valor do gasto.');return}const m=document.getElementById('financeMonth')?.value||currentMonth();const l=expenses();l.push({id:Date.now(),date:m===currentMonth()?localISO():m+'-01',desc:d,value:v});try{localStorage.setItem('gastos_natura_avon',JSON.stringify(l))}catch(e){alert('Não foi possível salvar o gasto.');return}document.getElementById('expDesc').value='';document.getElementById('expValue').value='';renderFinance()}
+function deleteExpense(id){if(!confirm('Excluir este gasto?'))return;try{localStorage.setItem('gastos_natura_avon',JSON.stringify(expenses().filter(x=>x.id!==id)))}catch(e){}renderFinance()}
+function renderFinance(){const e=document.getElementById('financeCards');if(!e)return;const month=document.getElementById('financeMonth')?.value||currentMonth();const all=JSON.parse(localStorage.getItem('pedidos_natura_avon')||'[]');const list=all.filter(o=>monthKeyFromOrder(o)===month);const sales=round2(list.reduce((s,o)=>s+Number(o.total||0),0)),received=round2(list.reduce((s,o)=>s+Number(o.paid||0),0)),receivable=round2(list.reduce((s,o)=>s+Number(o.balance||0),0)),discounts=round2(list.reduce((s,o)=>s+(o.products||[]).reduce((a,p)=>a+Number(p.discount||0)*Number(p.qty||1),0),0));
+let cogs=0,gross=0,noCost=0;list.forEach(o=>(o.products||[]).forEach(p=>{const c=Number(p.cost||0),q=Number(p.qty||1),t=Number(p.total!=null?p.total:(Number(p.price||0)*q));if(c>0){cogs+=c*q;gross+=t-c*q}else noCost++}));cogs=round2(cogs);gross=round2(gross);
+const ex=expenses().filter(x=>(x.date||'').slice(0,7)===month).sort((a,b)=>String(b.date).localeCompare(String(a.date)));const spent=round2(ex.reduce((s,x)=>s+Number(x.value||0),0));const profit=round2(gross-spent);
+e.innerHTML=`<div class="totalbox"><strong>💰 Vendas</strong><br>${money(sales)}</div><div class="totalbox"><strong>💵 Recebido</strong><br><span class="paid">${money(received)}</span></div><div class="totalbox"><strong>📅 A receber</strong><br><span class="debt">${money(receivable)}</span></div><div class="totalbox"><strong>🏷️ Descontos concedidos</strong><br>${money(discounts)}</div><div class="totalbox"><strong>📦 Pedidos</strong><br>${list.length}</div><div class="totalbox"><strong>🔁 Caixa para repor o estoque</strong><br>${money(cogs)}<br><small style="color:#888">custo dos produtos vendidos no mês</small></div><div class="totalbox"><strong>💸 Gastos do mês</strong><br>${money(spent)}</div><div class="totalbox"><strong>📈 Lucro do mês</strong><br><span class="${profit>=0?'paid':'overdue'}">${money(profit)}</span><br><small style="color:#888">lucro das vendas (${money(gross)}) menos os gastos</small></div>`;
+document.getElementById('financeDetails').innerHTML=(list.length?`<strong>Resumo de ${monthLabelBR(month)}</strong><p style="font-size:12px;color:#777">Mostra as vendas do mês, o que já foi recebido e o que está pendente. O lucro usa o preço de compra de cada produto, gravado no momento da venda.</p>`:'<div class="empty">Nenhuma venda registrada neste mês.</div>')+(noCost?`<p style="font-size:12px;color:#9a6500;background:#fff3cd;border-radius:10px;padding:9px">⚠️ ${noCost} item(ns) vendido(s) sem preço de compra ficaram fora do lucro e do caixa. Cadastre o preço de compra do produto em Consultora.</p>`:'');
+const el=document.getElementById('expenseList');if(el)el.innerHTML=ex.length?ex.map(x=>`<div class="totalbox" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span>${escH(x.desc)} <small style="color:#999">${String(x.date).split('-').reverse().slice(0,2).join('/')}</small></span><span>${money(x.value)} <button class="miniBtn del" onclick="deleteExpense(${x.id})">🗑️</button></span></div>`).join(''):'<div style="font-size:12px;color:#888">Nenhum gasto lançado neste mês.</div>'}
+function allRatings(){return JSON.parse(localStorage.getItem('avaliacoes_jeovania')||'[]')}
+function renderRatingProducts(){const e=document.getElementById('ratingProduct');if(!e)return;const sel=e.value;e.innerHTML='<option value="">Selecione o produto</option>'+products.map(x=>`<option value="${x.id}">${x.n} — ${x.b}</option>`).join('');if(sel)e.value=sel;}
+function ratingStats(){const rs=allRatings();const orders=JSON.parse(localStorage.getItem('pedidos_natura_avon')||'[]');return products.map(p=>{const a=rs.filter(r=>Number(r.productId)===Number(p.id));const avg=a.length?a.reduce((s,r)=>s+Number(r.stars),0)/a.length:0;const sold=orders.reduce((s,o)=>s+(o.products||[]).filter(i=>Number(i.productId)===Number(p.id)).reduce((q,i)=>q+Number(i.qty||1),0),0);return {...p,count:a.length,avg,sold}})}
+function renderRatings(){const e=document.getElementById('ratingRanking');if(!e)return;const stats=ratingStats();const rated=stats.filter(x=>x.count>0).sort((a,b)=>b.avg-a.avg||b.count-a.count);const unrated=stats.filter(x=>x.count===0);e.innerHTML=`<div class="reorderbox" style="background:#fff8e8"><h3>🏆 Mais bem avaliados</h3>${rated.slice(0,5).map((x,i)=>`<div class="reordercard"><strong>${i+1}. ${x.n}</strong><div>⭐ ${x.avg.toFixed(1)}/5 • ${x.count} avaliação(ões) • 📦 ${x.sold} vendido(s)</div></div>`).join('')||'<div style="font-size:12px">Ainda não há avaliações.</div>'}</div><div class="admin" style="padding:12px"><strong>📊 Categorias</strong><div style="font-size:13px;line-height:1.7;margin-top:6px">🏆 Mais bem avaliados: ${rated.filter(x=>x.avg>=4.5).length}<br>⭐ Bem avaliados: ${rated.filter(x=>x.avg>=4&&x.avg<4.5).length}<br>➖ Avaliação média: ${rated.filter(x=>x.avg<4).length}<br>❓ Ainda não avaliados: ${unrated.length}</div></div>`;}
+function requestRatingWhatsApp(){const phone=normalizePhone(document.getElementById('ratingPhone')?.value||'');if(phone.length<10){alert('Informe um WhatsApp válido.');return}const p=products.find(x=>String(x.id)===String(document.getElementById('ratingProduct')?.value));const msg=encodeURIComponent('Olá! 😊 Gostaria de saber o que você achou do '+(p?.n||'produto')+'. Pode me dar uma nota de 1 a 5 estrelas e, se quiser, contar o que mais gostou?');window.location.href='https://wa.me/55'+phone+'?text='+msg;}
+function saveRating(){const pid=document.getElementById('ratingProduct')?.value;if(!pid){alert('Selecione um produto.');return}const r={id:Date.now(),productId:Number(pid),stars:Number(document.getElementById('ratingStars').value),client:(document.getElementById('ratingClient').value||'').trim(),comment:(document.getElementById('ratingComment').value||'').trim(),date:new Date().toISOString().slice(0,10)};const rs=allRatings();rs.push(r);localStorage.setItem('avaliacoes_jeovania',JSON.stringify(rs));document.getElementById('ratingClient').value='';document.getElementById('ratingPhone').value='';document.getElementById('ratingComment').value='';renderRatings();alert('⭐ Avaliação salva.');}
+function showRatingFor(id){show('ratings');setTimeout(()=>{const e=document.getElementById('ratingProduct');if(e)e.value=String(id);},50);}
+function shareApp(){try{if(localStorage.getItem('jeovania_code'))return}catch(e){}const data={title:appName(),text:'Conheça o aplicativo '+appName()+' para controle de produtos, estoque, clientes, vendas e pedidos.',url:location.href};if(navigator.share)navigator.share(data).catch(()=>{});else{navigator.clipboard?.writeText(location.href).then(()=>alert('🔗 Link do aplicativo copiado para compartilhar.')).catch(()=>alert('🔗 Copie o endereço desta página para compartilhar.'));}}
+async function checkForUpdate(){const e=document.getElementById('updateStatus');if(!e)return;e.textContent='🔎 Verificando...';try{const r=await fetch('version.json?'+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('sem arquivo');const v=await r.json();if(String(v.version)!==APP_VERSION)e.innerHTML=`🆕 Nova versão disponível: <strong>${v.version}</strong>. Recarregue ou abra o link publicado.`;else e.textContent='✅ Você já está usando a versão mais recente.';}catch(err){e.textContent='ℹ️ A verificação online estará disponível quando o aplicativo estiver publicado com o arquivo de versão.';}}
+function renderAllNew(){setDefaultMonths();renderOrders();renderFinance();renderRatingProducts();renderRatings();const v=document.getElementById('appVersionLabel');if(v)v.textContent=APP_VERSION;}
+
+try{history.replaceState({p:'home'},'')}catch(e){}
+readNameFromLink();
+applyAppName();
+checkAccess();
+fixSavedPayments();
+renderManageProducts();
+renderSuppliers();
+renderAllNew();
+loadOnlineMagazines();
+populateSupplierSelect('');
+renderReorderList();
+renderProducts();
+populateNewProductSelect();
+checkStockAlerts();
+updateCart();
+renderClients();
+checkDueReminders();
+const dueInput=document.getElementById('newDueDate');if(dueInput)dueInput.min=new Date().toISOString().slice(0,10);
+applyCover();
+</script>
+</body>
+</html>
